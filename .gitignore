@@ -1,7 +1,9 @@
 */
-*.lnk
-*.log
+*.ilk
+*.pdb
 *.exe
+*.log
+*.lnk
 favicon.*
 config.xml
 database.xml
