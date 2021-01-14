@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="ВедомостьПоСчету">
+
+	<type name="ВедомостьПоСчету" title="Ведомость по счету" report="1" scope="global">
+		<field.ref name="Счет" type="ПланСчетов"/>
+		<field.ref name="Группа" type="СтатьиЗатрат-Группы"/>
+		<field.date name="НачалоПериода"/>
+		<field.date name="ОкончаниеПериода"/>
+		<field.array name="Итоги" type="ИтогВедомостиПоСчету"/>
+		<field.array name="Содержание" type="СтрокаВедомостиПоСчету"/>
+		<field.array name="Подписи" type="ПодписиВедомостиПоСчету"/>
+		
+		<state name="constructor">
+			
+			<function name="НачалоПериода">
+				<date>
+					<year><today/></year>
+					<month><today/></month>
+					<get value="1"/>
+				</date>
+			</function>
+				
+			<function name="ОкончаниеПериода">
+				<date>
+					<year><today/></year>
+					<add>
+						<month><today/></month>
+						<get value="1"/>
+					</add>
+					<get value="0"/>
+				</date>
+			</function>
+			
+			<function name="Счет">
+				<seek>
+					<get value="ПланСчетов"/>
+					<get value="УЧТ"/>
+				</seek>
+			</function>
+			
+			<function name="Группа">
+				<seek>
+					<get value="СтатьиЗатрат-Группы"/>
+					<get value="---ДЕНЬГИ---"/>
+				</seek>
+			</function>
+		
+		</state>
+		
+		<state name="Сформировать">
+			
+			<function name="Итоги">
+				<select>
+					<get value="ЗапросОборотовИОстатков"/>
+				</select>
+			</function>
+				
+			<function name="Содержание">
+				<select>
+					<get value="ЗапросИтогов"/>
+				</select>
+			</function>
+			
+			<function name="Подписи">
+				<select>
+					<get value="ЗапросВсего"/>
+				</select>
+			</function>
+			
+			<function name="Сформировать">
+				<get value="0"/>
+			</function>
+			
+		</state>
+		
+		<index name="ВедомостьПоСчету">
+			<key field="НачалоПериода"/>
+		</index>
+	</type>
+		
+	<type name="ИтогВедомостиПоСчету" scope="global">
+		<field.ref name="Наименование"/>
+		<field.string name="Представление"/>
+		<field.number name="СНД" precision="2"/>
+		<field.number name="СНК" precision="2"/>
+		<field.number name="ДО" precision="2"/>
+		<field.number name="КО" precision="2"/>
+		<field.number name="СКД" precision="2"/>
+		<field.number name="СКК" precision="2"/>
+		
+		<function name="Представление">
+			<get field="Наименование.title"/>
+		</function>
+		
+		<index name="ИтогВедомостиПоСчету">
+			<key field="owner"/>
+			<key field="Представление"/>
+			<key field="Наименование"/>
+			<total field="СНД"/>
+			<total field="СНК"/>
+			<total field="ДО"/>
+			<total field="КО"/>
+			<total field="СКД"/>
+			<total field="СКК"/>
+		</index>
+	</type>
+	
+	<type name="СтрокаВедомостиПоСчету" scope="global">
+		<field.ref name="Всего"/>
+		<field.ref name="Наименование"/>
+		<field.string name="Представление"/>
+		<field.number name="СНД" precision="2"/>
+		<field.number name="СНК" precision="2"/>
+		<field.number name="ДО" precision="2"/>
+		<field.number name="КО" precision="2"/>
+		<field.number name="ИтогСКД" precision="2"/>
+		<field.number name="ИтогСКК" precision="2"/>
+		<field.number name="ИтогСНД" precision="2"/>
+		<field.number name="СКД" precision="2"/>
+		<field.number name="СКК" precision="2"/>
+		
+		<state name="Скрытие"/>
+		
+		<function name="СКД">
+			<if><gt><get field="ИтогСКД"/><get field="ИтогСКК"/></gt>
+				<sub><get field="ИтогСКД"/><get field="ИтогСКК"/></sub>
+				<get value="0"/>
+			</if>
+		</function>
+		
+		<function name="СКК">
+			<if><gt><get field="ИтогСКК"/><get field="ИтогСКД"/></gt>
+				<sub><get field="ИтогСКК"/><get field="ИтогСКД"/></sub>
+				<get value="0"/>
+			</if>
+		</function>
+		
+		<function name="ИтогСНД">
+			<sub>
+				<sub><get field="ИтогСКД"/><get field="ИтогСКК"/></sub>
+				<sub><get field="ДО"/><get field="КО"/></sub>
+			</sub>
+		</function>
+		
+		<function name="СНД">
+			<if><gt><get field="ИтогСНД"/><get value="0"/></gt>
+				<get field="ИтогСНД"/>
+				<get value="0"/>
+			</if>
+		</function>
+		
+		<function name="СНК">
+			<if><gt><get field="ИтогСНД"/><get value="0"/></gt>
+				<get value="0"/>
+				<sub><get value="0"/><get field="ИтогСНД"/></sub>
+			</if>
+		</function>
+		
+		<function name="Скрытие">
+			<or>
+				<and>
+					<eq><get field="СНД"/><get value="0"/></eq>
+					<eq><get field="СНК"/><get value="0"/></eq>
+					<eq><get field="ДО"/><get value="0"/></eq>
+					<eq><get field="КО"/><get value="0"/></eq>
+					<eq><get field="СКД"/><get value="0"/></eq>
+					<eq><get field="СКК"/><get value="0"/></eq>
+				</and>
+				<and>
+					<not><eq><get field="owner.Группа"/><null/></eq></not>
+					<not><eq>
+						<get field="Наименование.Группа"/>
+						<get field="owner.Группа"/>
+					</eq></not>
+				</and>
+			</or>
+		</function>
+		
+		<index name="СтрокаВедомостиПоСчету">
+			<key field="owner"/>
+			<key field="Всего"/>
+			<total field="СНД"/>
+			<total field="СНК"/>
+			<total field="ДО"/>
+			<total field="КО"/>
+			<total field="СКД"/>
+			<total field="СКК"/>
+		</index>
+		
+	</type>
+	
+	<type name="ПодписиВедомостиПоСчету" scope="global">
+		<field.ref name="Всего"/>
+		<field.number name="СНД" precision="2"/>
+		<field.number name="СНК" precision="2"/>
+		<field.number name="ДО" precision="2"/>
+		<field.number name="КО" precision="2"/>
+		<field.number name="СКД" precision="2"/>
+		<field.number name="СКК" precision="2"/>
+	</type>
+	
+	<query name="ЗапросОборотовИОстатков">
+		<select from="ИтогиУчет">
+			<where key="Счет" field="Счет"/>
+			<group key="Счет"/>
+			<group key="СтатьяЗатрат" as="Наименование"/>
+			<range key="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
+			<sum total="СуммаДт" as="ДО"/>
+			<sum total="СуммаКт" as="КО"/>
+		</select>
+		<select from="ИтогиУчет">
+			<where key="Счет" field="Счет"/>
+			<group key="Счет"/>
+			<group key="СтатьяЗатрат" as="Наименование"/>
+			<range key="Период" to="ОкончаниеПериода"/>
+			<sum total="СуммаДт" as="СКД"/>
+			<sum total="СуммаКт" as="СКК"/>
+		</select>
+	</query>
+	
+	<query name="ЗапросИтогов">
+		<select from="ИтогВедомостиПоСчету">
+			<where key="owner" field="id"/>
+			<group key="owner"/>
+			<group key="Представление" as="Представление"/>
+			<group key="Наименование" as="Наименование"/>
+			<sum total="ДО" as="ДО"/>
+			<sum total="КО" as="КО"/>
+			<sum total="СКД" as="ИтогСКД"/>
+			<sum total="СКК" as="ИтогСКК"/>
+		</select>
+	</query>
+	
+	<query name="ЗапросВсего">
+		<select from="СтрокаВедомостиПоСчету">
+			<where key="owner" field="id"/>
+			<group key="owner"/>
+			<group key="Всего" as="Всего"/>
+			<sum total="СНД" as="СНД"/>
+			<sum total="СНК" as="СНК"/>
+			<sum total="ДО" as="ДО"/>
+			<sum total="КО" as="КО"/>
+			<sum total="СКД" as="СКД"/>
+			<sum total="СКК" as="СКК"/>
+		</select>
+	</query>
+	
+	<layout name="ВедомостьПоСчету">
+		<column width="2"/>
+		<column width="30"/>
+		<column width="15"/>
+		<column width="15"/>
+		<column width="15"/>
+		<column width="15"/>
+		<column width="15"/>
+		<column width="15"/>
+		<row/>
+		<row indent="1">
+			<button name="Сформировать" text="Сформировать"/>
+		</row>
+		<row indent="2" text="Период с:"/>
+		<cell bind="НачалоПериода" outline="2">
+			<edit type="date"/>
+			<tool type="calendar"/>
+		</cell>
+		<cell text="по:" align="center"/>
+		<cell bind="ОкончаниеПериода" outline="2">
+			<edit type="date"/>
+			<tool type="calendar"/>
+		</cell>
+		<row/>
+		<row indent="2" text="Счет:"/>
+		<cell bind="Счет" outline="2" cols="3">
+			<edit type="ref"/>
+			<tool type="choosing"/>
+		</cell>
+		<row/>
+		<row indent="2" text="Группа:"/>
+		<cell bind="Группа" outline="2" cols="3">
+			<edit type="ref"/>
+			<tool type="choosing"/>
+		</cell>
+		<row/>
+		<row indent="1" text="Наименование" align="center" border="2202"/>
+		<cell text="Сальдо на начало периода" cols="2" align="center" border="2110"/>
+		<cell text="Обороты за период" cols="2" align="center" border="2110"/>
+		<cell text="Сальдо на конец периода" cols="2" align="center" border="2210"/>
+		<row indent="1" border="0222"/>
+		<cell text="Дебет" align="center" border="0120"/>
+		<cell text="Кредит" align="center" border="0120"/>
+		<cell text="Дебет" align="center" border="0120"/>
+		<cell text="Кредит" align="center" border="0120"/>
+		<cell text="Дебет" align="center" border="0120"/>
+		<cell text="Кредит" align="center" border="0220"/>
+	</layout>
+	
+	<layout name="СтрокаВедомостиПоСчету">
+		<row indent="1" bind="Наименование" border="0212"/>
+		<cell bind="СНД" align="right" border="0110"/>
+		<cell bind="СНК" align="right" border="0110"/>
+		<cell bind="ДО" align="right" border="0110">
+			<label text=" " grow="1"/>
+			<link reference="КарточкаСчета" type="report"/>  <!--drill="РасшифровкаВедомости"-->
+		</cell>
+		<cell bind="КО" align="right" border="0110">
+			<label text=" " grow="1"/>
+			<link reference="КарточкаСчета" type="report"/>  <!--drill="РасшифровкаВедомости"-->
+		</cell>
+		<cell bind="СКД" align="right" border="0110"/>
+		<cell bind="СКК" align="right" border="0210"/>
+	</layout>
+	
+	<layout name="ПодписиВедомостиПоСчету">
+		<row indent="1" text="Всего" border="1222"/>
+		<cell bind="СНД" align="right" border="1120"/>
+		<cell bind="СНК" align="right" border="1120"/>
+		<cell bind="ДО" align="right" border="1120"/>
+		<cell bind="КО" align="right" border="1120"/>
+		<cell bind="СКД" align="right" border="1120"/>
+		<cell bind="СКК" align="right" border="1220"/>
+		<row/>
+	</layout>
+	
+</unit>

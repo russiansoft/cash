@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="КарточкаСчета">
+
+	<type name="КарточкаСчета" title="Карточка счета" report="1" scope="global">
+		<field.ref name="Счет" type="ПланСчетов" width="10"/>
+		<field.ref name="СтатьяЗатрат" type="СтатьиЗатрат" width="10"/>
+		<field.date name="НачалоПериода" width="20"/>
+		<field.date name="ОкончаниеПериода" width="20"/>
+		<field.array name="Содержание" type="КарточкаСчета-Строка"/>
+		<field.array name="Обороты" type="КарточкаСчета-Обороты"/>
+		<field.array name="КонечноеСальдо" type="КарточкаСчета-КонечноеСальдо"/>
+		
+		<state name="constructor">
+			
+			<function name="НачалоПериода">
+				<get value="2020-01-01"/>
+			</function>
+			
+			<function name="ОкончаниеПериода">
+				<get value="2020-01-31"/>
+			</function>
+			
+			<function name="СтатьяЗатрат">
+				<seek>
+					<get value="СтатьиЗатрат"/>
+					<get value="Алёна"/>
+				</seek>
+			</function>
+			
+			<function name="Счет">
+				<seek>
+					<get value="ПланСчетов"/>
+					<get value="УЧТ"/>
+				</seek>
+			</function>
+			
+			<function name="РасшифровкаВедомости">
+				<if>
+					<eq>
+						<compare>
+							<type><get field="parent"/></type>
+							<get value="СтрокаВедомостиПоСчету"/>
+						</compare>
+						<get value="0"/>
+					</eq>
+					<get value="1"/>
+					<get value="0"/>
+				</if>
+			</function>
+			
+		</state>
+		
+		<state name="РасшифровкаВедомости">
+			
+			<function name="НачалоПериода">
+				<get field="parent.owner.НачалоПериода"/>
+			</function>
+			
+			<function name="ОкончаниеПериода">
+				<get field="parent.owner.ОкончаниеПериода"/>
+			</function>
+			
+			<function name="Счет">
+				<get field="parent.owner.Счет"/>
+			</function>
+			
+			<function name="СтатьяЗатрат">
+				<get field="parent.Наименование"/>
+			</function>
+			
+			<function name="Сформировать">
+				<get value="1"/>
+			</function>
+			
+		</state>
+		
+		<state name="Сформировать">
+			
+			<function name="Сформировать">
+				<get value="0"/>
+			</function>
+			
+			<function name="Содержание">
+				<select>
+					<get value="ЗапросДвижений"/>
+				</select>
+			</function>
+			
+			<function name="Обороты">
+				<select>
+					<get value="ЗапросОборотов"/>
+				</select>
+			</function>
+			
+			<function name="КонечноеСальдо">
+				<select>
+					<get value="ЗапросКонечногоСальдо"/>
+				</select>
+			</function>
+			
+		</state>
+		
+		<index name="КарточкаСчета">
+			<key field="НачалоПериода"/>
+		</index>
+	</type>
+		
+	<type name="КарточкаСчета-Строка" scope="global">
+		<field.ref name="Счет" type="ПланСчетов"/>
+		<field.ref name="СтатьяЗатрат" type="СтатьиЗатрат"/>
+		<field.date name="Дата"/>
+		<field.string name="Операция"/>
+		<field.string name="Комментарий"/>
+		<field.ref name="ЗаписьНаСчете"/>
+		<field.ref name="Документ"/>
+		<field.string name="ДатаЗаписи"/>
+		<field.string name="ВремяЗаписи"/>
+		<field.number name="ПорядокЗаписи"/>
+		<field.number name="ДО" precision="2"/>
+		<field.number name="КО" precision="2"/>
+		
+		<function name="Счет">
+			<get field="owner.Счет"/>
+		</function>
+		
+		<function name="СтатьяЗатрат">
+			<get field="owner.СтатьяЗатрат"/>
+		</function>
+		
+		<field.number name="СальдоДО" precision="2"/>
+		<field.number name="СальдоКО" precision="2"/>
+		<field.string name="Признак"/>
+		<field.number name="Сальдо" precision="2"/>
+
+		<function name="СальдоДО">
+			<overall>
+				<get value="ЗапросСальдоСтроки"/>
+				<get value="СуммаДт"/>
+			</overall>
+		</function>
+		
+		<function name="СальдоКО">
+			<overall>
+				<get value="ЗапросСальдоСтроки"/>
+				<get value="СуммаКт"/>
+			</overall>
+		</function>
+		
+		<function name="Признак">
+			<if><lt><get field="СальдоДО"/><get field="СальдоКО"/></lt>
+				<get value="К"/>
+				<get value="Д"/>
+			</if>
+		</function>
+		
+		<function name="Сальдо">
+			<if><gt><get field="СальдоДО"/><get field="СальдоКО"/></gt>
+				<sub>
+					<get field="СальдоДО"/>
+					<get field="СальдоКО"/>
+				</sub>
+				<sub>
+					<get field="СальдоКО"/>
+					<get field="СальдоДО"/>
+				</sub>
+			</if>
+		</function>
+		
+		<function name="Операция">
+			<get field="ЗаписьНаСчете.owner.owner.Номер"/>
+		</function>
+		
+		<function name="Комментарий">
+			<get field="ЗаписьНаСчете.owner.owner.Комментарий"/>
+		</function>
+		
+		<function name="Документ">
+			<get field="ЗаписьНаСчете.owner.owner"/>
+		</function>
+		
+		<function name="ДатаЗаписи">
+			<get field="ЗаписьНаСчете.Дата"/>
+		</function>
+		
+		<function name="ВремяЗаписи">
+			<get field="ЗаписьНаСчете.Время"/>
+		</function>
+		
+		<function name="ПорядокЗаписи">
+			<get field="ЗаписьНаСчете.Порядок"/>
+		</function>
+		
+	</type>
+	
+	<type name="КарточкаСчета-Обороты" scope="global">
+		<field.number name="ДО" precision="2"/>
+		<field.number name="КО" precision="2"/>
+	</type>
+		
+	<type name="КарточкаСчета-КонечноеСальдо" scope="global">
+		<field.number name="ДО" precision="2"/>
+		<field.number name="КО" precision="2"/>
+	</type>
+		
+	<query name="ЗапросДвижений">
+		<select from="ИтогиУчет">
+			<where key="Счет" field="Счет"/>
+			<where key="СтатьяЗатрат" field="СтатьяЗатрат"/>
+			<range key="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
+			<detail field="Период" as="Дата"/>
+			<detail field="СуммаДт" as="ДО"/>
+			<detail field="СуммаКт" as="КО"/>
+			<detail field="id" as="ЗаписьНаСчете"/>
+		</select>
+	</query>
+	
+	<query name="ЗапросСальдоСтроки">
+		<select from="ИтогиУчет">
+			<where key="Счет" field="Счет"/>
+			<where key="СтатьяЗатрат" field="СтатьяЗатрат"/>
+			<where key="Период" to="Дата"/>
+			<where key="Дата" to="ДатаЗаписи"/>
+			<where key="Время" to="ВремяЗаписи"/>
+			<where key="Порядок" to="ПорядокЗаписи"/>
+			<where key="id" to="ЗаписьНаСчете"/>
+		</select>
+	</query>
+	
+	<query name="ЗапросОборотов">
+		<select from="ИтогиУчет">
+			<where key="Счет" field="Счет"/>
+			<where key="СтатьяЗатрат" field="СтатьяЗатрат"/>
+			<group key="Счет"/>
+			<group key="СтатьяЗатрат"/>
+			<range key="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
+			<sum total="СуммаДт" as="ДО"/>
+			<sum total="СуммаКт" as="КО"/>
+		</select>
+	</query>
+
+	<query name="ЗапросКонечногоСальдо">
+		<select from="ИтогиУчет">
+			<where key="Счет" field="Счет"/>
+			<where key="СтатьяЗатрат" field="СтатьяЗатрат"/>
+			<group key="Счет"/>
+			<group key="СтатьяЗатрат"/>
+			<range key="Период" to="ОкончаниеПериода"/>
+			<sum total="СуммаДт" as="ДО"/>
+			<sum total="СуммаКт" as="КО"/>
+		</select>
+	</query>
+	
+	<layout name="КарточкаСчета">
+		<column width="2"/>
+		<column width="10"/>
+		<column width="15"/>
+		<column width="30"/>
+		<column width="15"/>
+		<column width="15"/>
+		<column width="15"/>
+		<column width="15"/>
+		<column width="2"/>
+		<column width="15"/>
+		<row/>
+		<row indent="1" cols="2">
+			<button name="Сформировать" text="Сформировать"/>
+		</row>
+		<row indent="3" text="Период с:"/>
+		<cell bind="НачалоПериода" outline="2">
+			<edit type="date"/>
+			<tool type="calendar"/>
+		</cell>
+		<cell text="по:" align="center"/>
+		<cell bind="ОкончаниеПериода" outline="2">
+			<edit type="date"/>
+			<tool type="calendar"/>
+		</cell>
+		<row/>
+		<row indent="3" text="Счет:"/>
+		<cell bind="Счет" outline="2" cols="3">
+			<edit type="ref"/>
+			<tool type="choosing"/>
+		</cell>
+		<row/>
+		<row indent="3" text="Статья затрат:"/>
+		<cell bind="СтатьяЗатрат" outline="2" cols="3">
+			<edit type="ref"/>
+			<tool type="choosing"/>
+		</cell>
+		<row/>
+		<row indent="1" text="Дата" align="center" border="2102"/>
+		<cell text="Документ" align="center" border="2100"/>
+		<cell text="Операции" align="center" border="2200"/>
+		<cell text="Дебет" align="center" cols="2" border="2210"/>
+		<cell text="Кредит" align="center" cols="2" border="2210"/>
+		<cell text="Текущее сальдо" align="center" cols="2" border="2200"/>
+		<row indent="1" border="0122"/>
+		<cell border="0120"/>
+		<cell border="0220"/>
+		<cell text="Счет" align="center" border="0120"/>
+		<cell text="Сумма" align="center" border="0220"/>
+		<cell text="Счет" align="center" border="0120"/>
+		<cell text="Сумма" align="center" border="0220"/>
+		<cell cols="2" border="0220"/>
+	</layout>
+	
+	<layout name="КарточкаСчета-Строка">
+		<row indent="1" bind="Дата" border="0112"/>
+		<cell bind="Операция" border="0110"/>
+		<cell bind="Комментарий" border="0210"/>
+		<cell border="0110"/>
+		<cell bind="ДО" align="right" border="0210">
+			<label text=" " grow="1"/>
+			<link reference="УчетнаяОперация" type="edit" drill="Документ"/>
+		</cell>
+		<cell border="0110"/>
+		<cell bind="КО" align="right" border="0210">
+			<label text=" " grow="1"/>
+			<link reference="УчетнаяОперация"/>
+		</cell>
+		<cell bind="Признак" border="0010"/>
+		<cell bind="Сальдо" align="right" border="0210"/>
+	</layout>
+	
+	<layout name="КарточкаСчета-Обороты">
+		<row indent="1" text="Обороты за период" border="1222" cols="3"/>
+		<cell border="1120"/>
+		<cell bind="ДО" align="right" border="1220"/>
+		<cell border="1120"/>
+		<cell bind="КО" align="right" border="1220"/>
+		<cell cols="2" border="1220"/>
+	</layout>
+	
+	<layout name="КарточкаСчета-КонечноеСальдо">
+		<row indent="1" text="Сальдо" border="0222" cols="3"/>
+		<cell border="0120"/>
+		<cell bind="ДО" align="right" border="0220"/>
+		<cell border="0120"/>
+		<cell bind="КО" align="right" border="0220"/>
+		<cell cols="2" border="0220"/>
+	</layout>
+	
+</unit>

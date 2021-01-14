@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Проводка">
+	
+	<type name="Проводка" scope="global">
+		<field.ref name="Операция" type="Операция"/>
+		<field.date name="Период"/>
+		<field.ref name="СчетДт" type="ПланСчетов"/>
+		<field.ref name="СчетКт" type="ПланСчетов"/>
+		<field.object name="АналитикаДт" type="Аналитика"/>
+		<field.object name="АналитикаКт" type="Аналитика"/>
+		<field.number name="Сумма" precision="2"/>
+		<field.number name="КоличествоДт" precision="3"/>
+		<field.number name="КоличествоКт" precision="3"/>
+		
+		<function name="title">
+			<string>
+				<get field="Период"/>
+				<get value=" "/>
+				<get field="Сумма"/>
+			</string>
+		</function>
+	
+		<function name="Проведенная">
+			<get field="owner.Проведен"/>
+		</function>
+		
+		<function name="Непроведенная">
+			<not>
+				<get field="owner.Проведен"/>
+			</not>
+		</function>
+		
+		<state name="Проведенная">
+			
+			<field.object name="Дебет" type="Итоги"/>
+			<function name="Дебет.Период"><get field="Период"/></function>
+			<function name="Дебет.Счет"><get field="СчетДт"/></function>
+			<function name="Дебет.КорСчет"><get field="СчетКт"/></function>
+			<function name="Дебет.Аналитика"><get field="АналитикаДт"/></function>
+			<function name="Дебет.СуммаДт"><get field="Сумма"/></function>
+			<function name="Дебет.КоличествоДт"><get field="КоличествоДт"/></function>
+			
+			<field.object name="Кредит" type="Итоги"/>
+			<function name="Кредит.Период"><get field="Период"/></function>
+			<function name="Кредит.Счет"><get field="СчетКт"/></function>
+			<function name="Кредит.КорСчет"><get field="СчетДт"/></function>
+			<function name="Кредит.Аналитика"><get field="АналитикаКт"/></function>
+			<function name="Кредит.СуммаКт"><get field="Сумма"/></function>
+			<function name="Кредит.КоличествоКт"><get field="КоличествоКт"/></function>
+		</state>
+		
+		<state name="Непроведенная"/>
+
+		<index name="Проводка">
+			<key field="Период"/>
+			<total field="Сумма"/>
+		</index>
+		
+		<access.write role="1Cv77"/>
+	</type>
+	
+</unit>

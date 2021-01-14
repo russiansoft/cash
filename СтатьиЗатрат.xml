@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="СтатьиЗатрат">
+	
+	<type name="СтатьиЗатрат-Группы" title="Группы статей затрат" scope="global">
+		<field.string name="Код" width="6"/>
+		<field.string name="Наименование" width="30"/>
+		<index name="СтатьиЗатрат-Группы">
+			<key field="Наименование"/>
+		</index>
+		<access.allow role="1Cv77"/>
+		
+		<function name="title">
+			<get field="Наименование"/>
+		</function>
+		
+	</type>
+	
+	<type name="СтатьиЗатрат" title="Статьи затрат" scope="global">
+		<field.string name="Код" width="6"/>
+		<field.string name="Наименование" width="30" indexing="sort"/>
+		<field.ref name="Группа" type="СтатьиЗатрат-Группы" width="20" indexing="key"/>
+		<index name="СтатьиЗатрат">
+			<key field="Наименование"/>
+		</index>
+		<access.allow role="1Cv77"/>
+		
+		<function name="title">
+			<get field="Наименование"/>
+		</function>
+		
+	</type>
+	
+	<layout name="СтатьиЗатрат-Группы">
+		<column width="2"/>
+		<column width="30"/>
+		<column width="30"/>
+		<row/>
+		<row indent="1">
+			<button name="Записать" text="Записать и закрыть"/>
+		</row>
+		<row/>
+		<row indent="1" text="Наименование"/>
+		<cell bind="Наименование" outline="2">
+			<edit grow="1"/>
+		</cell>
+		<row/>
+		<row indent="1" text="Группа"/>
+		<cell bind="Группа" outline="2">
+			<edit type="ref" grow="1"/>
+			<tool type="choosing"/>
+		</cell>
+	</layout>
+	
+	<layout name="СтатьиЗатрат">
+		<column width="2"/>
+		<column width="30"/>
+		<column width="30"/>
+		<row/>
+		<row indent="1">
+			<button name="Записать" text="Записать и закрыть"/>
+		</row>
+		<row/>
+		<row indent="1" text="Наименование"/>
+		<cell bind="Наименование" outline="2">
+			<edit grow="1"/>
+		</cell>
+		<row/>
+		<row indent="1" text="Группа"/>
+		<cell bind="Группа" outline="2">
+			<edit type="ref" grow="1"/>
+			<tool type="choosing"/>
+		</cell>
+	</layout>
+	
+</unit>

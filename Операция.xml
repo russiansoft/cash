@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Операция">
+	
+	<type name="Операция" scope="global">
+		<default name="Проведенная"/>
+		
+		<state name="Непроведенная"/>
+		
+		<function name="Проведенная">
+			<get value="1"/>
+		</function>
+		
+		<access.write role="1Cv77"/>
+	</type>
+	
+</unit>

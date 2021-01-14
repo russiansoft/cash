@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Итоги">
+	
+	<type name="Итоги" scope="global">
+		<field.date name="Период" width="10"/>
+		<field.string name="Дата" width="10"/>
+		<field.string name="Время" width="10"/>
+		<field.number name="Порядок" width="10"/>
+		<field.ref name="Счет" type="ПланСчетов" width="10"/>
+		<field.ref name="КорСчет" type="ПланСчетов" title="Кор. счет" width="10"/>
+		<field.ref name="Аналитика" type="Аналитика"/>
+		<field.number name="СуммаДт" precision="2" title="Сумма Дт" width="10" indexing="total"/>
+		<field.number name="СуммаКт" precision="2" title="Сумма Кт" width="10" indexing="total"/>
+		<field.number name="КоличествоДт" precision="3"/>
+		<field.number name="КоличествоКт" precision="3"/>
+		
+		<function name="Дата">
+			<today/>
+		</function>
+		
+		<function name="Время">
+			<now/>
+		</function>
+		
+		<function name="Порядок">
+			<numerator/>
+		</function>
+		
+		<function name="Учет">
+			<eq>
+				<get field="Счет"/>
+				<get value="УЧТ"/>
+			</eq>
+		</function>
+		
+		<index name="Итоги">
+			<key field="Счет"/>
+			<key field="Период"/>
+			<key field="Дата"/>
+			<key field="Время"/>
+			<key field="Порядок"/>
+			<total field="СуммаДт" precision="2"/>
+			<total field="СуммаКт" precision="2"/>
+			<total field="КоличествоДт" precision="3"/>
+			<total field="КоличествоКт" precision="3"/>
+		</index>
+
+		<state name="Учет">
+			<field.ref name="СтатьяЗатрат" type="СтатьиЗатрат" title="Статья затрат" width="20"/>
+			
+			<function name="СтатьяЗатрат">
+				<get field="Аналитика.СтатьяЗатрат"/>
+			</function>
+			
+			<index name="ИтогиУчет">
+				<key field="Счет"/>
+				<key field="СтатьяЗатрат"/>
+				<key field="Период"/>
+				<key field="Дата"/>
+				<key field="Время"/>
+				<key field="Порядок"/>
+				<total field="СуммаДт" precision="2"/>
+				<total field="СуммаКт" precision="2"/>
+				<total field="КоличествоДт" precision="3"/>
+				<total field="КоличествоКт" precision="3"/>
+			</index>
+
+		</state>
+		
+		<access.write role="1Cv77"/>
+	</type>
+	
+</unit>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="ПланСчетов">
+	
+	<type name="ПланСчетов" title="План счетов" scope="global">
+		<field.string name="Код" width="10"/>
+		<field.string name="Наименование" width="30"/>
+		<field.boolean name="Активный"/>
+		<field.boolean name="Количественный"/>
+		<field.boolean name="Забалансовый"/>
+		
+		<function name="title">
+			<get field="Код"/>
+		</function>
+		
+		<state name="Группа"/>
+		
+		<state name="Счет"/>
+		
+		<index name="ПланСчетов">
+			<key field="Код"/>
+		</index>
+		
+		<access.allow role="Бухгалтер"/>
+	</type>
+	
+	<layout name="ПланСчетов">
+		<column width="2"/>
+		<column width="30"/>
+		<column width="30"/>
+		<row/>
+		<row indent="1">
+			<button name="Записать" text="Записать и закрыть"/>
+		</row>
+		<row/>
+		<row indent="1" text="Код"/>
+		<cell bind="Код" outline="2">
+			<edit grow="1"/>
+		</cell>
+		<row/>
+		<row indent="1" text="Наименование"/>
+		<cell bind="Наименование" outline="2">
+			<edit grow="1"/>
+		</cell>
+	</layout>
+	
+</unit>

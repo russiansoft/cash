@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<package name="cash" version="1.0">
+	<include unit="Общие"/>
+	<include unit="ПланСчетов"/>
+	<include unit="СтатьиЗатрат"/>
+	<include unit="Аналитика"/>
+	<include unit="Итоги"/>
+	<include unit="Операция"/>
+	<include unit="Проводка"/>
+	<include unit="УчетнаяОперация"/>
+	<include unit="ВедомостьПоСчету"/>
+	<include unit="КарточкаСчета"/>
+</package>

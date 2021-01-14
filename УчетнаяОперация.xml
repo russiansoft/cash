@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="УчетнаяОперация">
+	
+	<type name="УчетнаяОперация" title="Учетная операция" scope="global">
+		<field.string name="Номер"/>
+		<field.number name="ЧисловойНомер"/>
+		<field.date name="Дата" width="9" indexing="sort"/>
+		<field.number name="Год"/>
+		<field.ref name="СтатьяДебета" type="СтатьиЗатрат" title="Статья дебета" width="12" indexing="key"/>
+		<field.ref name="СтатьяКредита" type="СтатьиЗатрат" title="Статья кредита" width="12" indexing="key"/>
+		<field.number name="Сумма" width="7" indexing="total"/>
+		<field.string name="Комментарий" width="20"/>
+		<field.object name="Операция" type="Операция"/>
+		<field.object name="Проводка" type="Проводка"/>
+		<field.boolean name="Проведен" title="БУ" width="3"/>
+		<field.number name="ОстатокДт" prcecision="2" variable="1"/>
+		<field.number name="ОстатокКт" prcecision="2" variable="1"/>
+		
+		<function name="ЧисловойНомер">
+			<get field="Номер"/>
+		</function>
+		
+		<function name="Год">
+			<year>
+				<get field="Дата"/>
+			</year>
+		</function>
+		
+		<function name="Проводка.Период">
+			<get field="Дата"/>
+		</function>
+		
+		<function name="Проводка.СчетДт">
+			<seek>
+				<get value="ПланСчетов"/>
+				<get value="УЧТ"/>
+			</seek>
+		</function>
+		
+		<function name="Проводка.АналитикаДт.СтатьяЗатрат">
+			<get field="СтатьяДебета"/>
+		</function>
+		
+		<function name="Проводка.СчетКт">
+			<seek>
+				<get value="ПланСчетов"/>
+				<get value="УЧТ"/>
+			</seek>
+		</function>
+		
+		<function name="Проводка.АналитикаКт.СтатьяЗатрат">
+			<get field="СтатьяКредита"/>
+		</function>
+		
+		<function name="Проводка.Сумма">
+			<get field="Сумма"/>
+		</function>
+		
+		<function name="ОстатокДт">
+			<sub>
+				<overall>
+					<get value="ЗапросОстаткаДт"/>
+					<get value="СуммаДт"/>
+				</overall>
+				<overall>
+					<get value="ЗапросОстаткаДт"/>
+					<get value="СуммаКт"/>
+				</overall>
+			</sub>
+		</function>
+		
+		<function name="ОстатокКт">
+			<sub>
+				<overall>
+					<get value="ЗапросОстаткаКт"/>
+					<get value="СуммаДт"/>
+				</overall>
+				<overall>
+					<get value="ЗапросОстаткаКт"/>
+					<get value="СуммаКт"/>
+				</overall>
+			</sub>
+		</function>
+		
+		<state name="constructor">
+			
+			<function name="Проведен">
+				<get value="1"/>
+			</function>
+			
+			<function name="Дата">
+				<today/>
+			</function>
+			
+			<field.ref name="ПоследняяУчетнаяОперация"/>
+			
+			<function name="ПоследняяУчетнаяОперация">
+				<last>
+					<get value="УчетнаяОперация-Нумератор"/>
+					<get field="Год"/>
+				</last>
+			</function>
+			
+			<function name="Номер">
+				<add>
+					<get field="ПоследняяУчетнаяОперация.ЧисловойНомер"/>
+					<get value="1"/>
+				</add>
+			</function>
+			
+			<function name="ЧисловойНомер">
+				<get value="0"/>
+			</function>
+		
+		</state>
+		
+		<index name="УчетнаяОперация">
+			<key field="Дата"/>
+			<key field="Номер"/>
+		</index>
+		
+		<index name="УчетнаяОперация-Нумератор">
+			<key field="Год"/>
+			<key field="ЧисловойНомер"/>
+		</index>
+		
+		<access.allow role="1Cv77"/>
+	</type>
+	
+	<query name="ЗапросОстаткаДт">
+		<select from="ИтогиУчет">
+			<where key="Счет" value="ПланСчетов.УЧТ"/>
+			<where key="СтатьяЗатрат" field="СтатьяДебета"/>
+		</select>
+	</query>
+	
+	<query name="ЗапросОстаткаКт">
+		<select from="ИтогиУчет">
+			<where key="Счет" value="ПланСчетов.УЧТ"/>
+			<where key="СтатьяЗатрат" field="СтатьяКредита"/>
+		</select>
+	</query>
+	
+	<layout name="УчетнаяОперация">
+		<column width="2"/>
+		<column width="14"/>
+		<column width="14"/>
+		<column width="14"/>
+		<row/>
+		<row indent="1" cols="2">
+			<button name="Записать" text="Записать и закрыть"/>
+		</row>
+		<row/>
+		<row indent="1" text="Дата"/>
+		<cell bind="Дата" outline="2">
+			<edit type="date"/>
+			<tool type="calendar"/>
+		</cell>
+		<row/>
+		<row indent="1" text="Дебет"/>
+		<cell bind="СтатьяДебета" cols="2" outline="2">
+			<edit type="ref"/>
+			<tool type="choosing"/>
+		</cell>
+		<row/>
+		<cell indent="2" bind="ОстатокДт" align="right" color="009646"/>
+		<row/>
+		<row indent="1" text="Кредит"/>
+		<cell bind="СтатьяКредита" cols="2" outline="2">
+			<edit type="ref"/>
+			<tool type="choosing"/>
+		</cell>
+		<row/>
+		<cell indent="2" bind="ОстатокКт" align="right" color="009646"/>
+		<row/>
+		<row indent="1" text="Сумма"/>
+		<cell bind="Сумма" outline="2">
+			<edit/>
+			<tool type="calculator"/>
+		</cell>
+		<row/>
+		<row indent="1" text="Комментарий"/>
+		<row/>
+		<row indent="1" bind="Комментарий" cols="3" outline="2">
+			<edit type="area" vertical="4"/>
+		</row>
+		<row/>
+		<row indent="1" text="Номер"/>
+		<cell bind="Номер" outline="2"><edit/></cell>
+		<row/>
+		<row indent="1" text="БУ"/>
+		<cell bind="Проведен" outline="2"><edit/></cell>
+		<row/>
+		<row/>
+		<row/>
+		<row/>
+		<row/>
+	</layout>
+	
+</unit>

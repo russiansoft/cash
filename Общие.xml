@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Общие">
+	
+	<role name="Бухгалтер"/>
+	<role name="1Cv77"/>
+	
+	<type name="main" scope="global">
+		<function name="title">
+			<get value="Учет"/>
+		</function>
+	</type>
+	
+	<layout name="main">
+		<column width="2"/>
+		<column width="4"/>
+		<column width="60"/>
+		
+		<row/>
+		<row indent="1" text="Документы" bold="1" color="009646" cols="2"/>
+		<row/>
+		<row indent="2">
+			<link reference="УчетнаяОперация" type="list" text="Журнал операций"/>
+		</row>
+			
+		<row/>
+		<row/>
+		<row indent="1" text="Отчеты" bold="1" color="009646" cols="2"/>
+		<row/>
+		<row indent="2">
+			<link reference="ВедомостьПоСчету" type="report" text="Ведомость по счету"/>
+		</row>
+		<row/>
+		<row indent="2">
+			<link reference="КарточкаСчета" type="report" text="Карточка счета"/>
+		</row>
+		<row/>
+		
+		<row/>
+		<row/>
+		<row indent="1" text="Справочники" bold="1" color="009646" cols="2"/>
+		<row/>
+		<row indent="2">
+			<link reference="СтатьиЗатрат" type="list" text="Статьи затрат"/>
+		</row>
+		<row/>
+		<row indent="2">
+			<link reference="СтатьиЗатрат-Группы" type="list" text="Группы статей затрат"/>
+		</row>
+		
+		<row/>
+		<row/>
+		<row indent="1" text="Регистры" bold="1" color="009646" cols="2"/>
+		<row/>
+		<row indent="2">
+			<link reference="ПланСчетов" type="list" text="План счетов"/>
+		</row>
+		<row/>
+		<row indent="2">
+			<link reference="Итоги.Учет" type="list" text="Регистр бухгалтерских итогов"/>
+		</row>
+	</layout>
+	
+	<!--Контакты-->
+	<!--<type name="phone" title="Телефоны">
+		<field.string name="Наименование" width="30"/>
+		<field.string name="Телефоны" width="20"/>
+		<field.tel name="Телефон1"/>
+		<field.tel name="Телефон2"/>
+		<field.tel name="Телефон3"/>
+		<field.tel name="Телефон4"/>
+		<field.tel name="Телефон5"/>
+		<field.tel name="Телефон6"/>
+		<field.tel name="Телефон7"/>
+		<field.tel name="Телефон8"/>
+		<field.tel name="Телефон9"/>
+		<field.tel name="Телефон10"/>
+		<index name="phone">
+			<key field="Наименование"/>
+		</index>
+	</type>-->
+
+	<layout name="Контакт">
+		<column width="30"/>
+		<column width="30"/>
+		<column width="10"/>
+		<row/>
+		<row>
+			<button name="Записать" text="Записать и закрыть"/>
+		</row>
+		<row/>
+		<row/>
+		<row text="Наименование"/><cell bind="Наименование"/>
+		<row text="Телефоны"/><cell bind="Телефоны"/>
+		<row text="Телефон1"/>
+		<cell>
+			<edit bind="Телефон1" grow="1"/>
+			<button name="Call1" text="Позвонить" vertical="baseline"/>
+		</cell>
+		<row text="Телефон2"/>
+		<cell>
+			<edit bind="Телефон2" grow="1"/>
+			<button name="Call2" text="Позвонить" vertical="baseline"/>
+		</cell>
+		<row text="Телефон3"/>
+		<cell>
+			<edit bind="Телефон3" grow="1"/>
+			<button name="Call3" text="Позвонить" vertical="baseline"/>
+		</cell>
+		<row text="Телефон4"/>
+		<cell>
+			<edit bind="Телефон4" grow="1"/>
+			<button name="Call4" text="Позвонить" vertical="baseline"/>
+		</cell>
+		<row text="Телефон5"/>
+		<cell>
+			<edit bind="Телефон5" grow="1"/>
+			<button name="Call5" text="Позвонить" vertical="baseline"/>
+		</cell>
+		<row text="Телефон6"/>
+		<cell>
+			<edit bind="Телефон6" grow="1"/>
+			<button name="Call6" text="Позвонить" vertical="baseline"/>
+		</cell>
+		<row text="Телефон7"/>
+		<cell>
+			<edit bind="Телефон7" grow="1"/>
+			<button name="Call7" text="Позвонить" vertical="baseline"/>
+		</cell>
+		<row text="Телефон8"/>
+		<cell>
+			<edit bind="Телефон8" grow="1"/>
+			<button name="Call8" text="Позвонить" vertical="baseline"/>
+		</cell>
+		<row text="Телефон9"/>
+		<cell>
+			<edit bind="Телефон9" grow="1"/>
+			<button name="Call9" text="Позвонить" vertical="baseline"/>
+		</cell>
+		<row text="Телефон10"/>
+		<cell>
+			<edit bind="Телефон10" grow="1"/>
+			<button name="Call10" text="Позвонить" vertical="baseline"/>
+		</cell>
+	</layout>
+	
+</unit>

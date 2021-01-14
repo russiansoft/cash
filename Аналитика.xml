@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Аналитика">
+	
+	<type name="Аналитика" scope="global">
+		<field.ref name="СтатьяЗатрат" type="СтатьиЗатрат"/>
+		<!--<field.ref name="Контрагент" type="Контрагент"/>-->
+		<!--<field.ref name="Номенклатура" type="Номенклатура"/>-->
+		
+		<access.write role="1Cv77"/>
+	</type>
+	
+	
+</unit>
