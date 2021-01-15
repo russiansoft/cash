@@ -44,12 +44,12 @@
 		<cell bind="Наименование" outline="2">
 			<edit grow="1"/>
 		</cell>
-		<row/>
+		<!--<row/>
 		<row indent="1" text="Группа"/>
 		<cell bind="Группа" outline="2">
 			<edit type="ref" grow="1"/>
 			<tool type="choosing"/>
-		</cell>
+		</cell>-->
 	</layout>
 	
 	<layout name="СтатьиЗатрат">
