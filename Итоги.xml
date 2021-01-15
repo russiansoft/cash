@@ -28,10 +28,7 @@
 		</function>
 		
 		<function name="Учет">
-			<eq>
-				<get field="Счет"/>
-				<get value="УЧТ"/>
-			</eq>
+			<get value="1"/>
 		</function>
 		
 		<index name="Итоги">
