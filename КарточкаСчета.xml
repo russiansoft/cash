@@ -14,22 +14,18 @@
 		<state name="constructor">
 			
 			<function name="НачалоПериода">
-				<date>
-					<year><today/></year>
-					<month><today/></month>
-					<get value="1"/>
-				</date>
+				<get value="2020-01-01"/>
 			</function>
 			
 			<function name="ОкончаниеПериода">
-				<date>
-					<year><today/></year>
-					<add>
-						<month><today/></month>
-						<get value="1"/>
-					</add>
-					<get value="0"/>
-				</date>
+				<get value="2020-01-31"/>
+			</function>
+			
+			<function name="СтатьяЗатрат">
+				<seek>
+					<get value="СтатьиЗатрат"/>
+					<get value="Алёна"/>
+				</seek>
 			</function>
 			
 			<function name="Счет">
