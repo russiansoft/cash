@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Версия">
+
+	<type name="Версия" title="Новое в версии" report="1" scope="global">
+		
+	</type>
+	
+	<layout name="Версия">
+		<column width="2"/>
+		<column width="4"/>
+		<column width="4"/>
+		<column width="100"/>
+		<row/>
+		<row/><cell text="Версия 1.0" size="20" bold="1" underline="1" cols="3"/>
+		<row/>
+		<row/><cell indent="1" text="Общее" bold="1" italic="1" cols="2"/>
+		<row/><cell indent="2" text="Введена нумерация релизов."/>
+		<row/><cell indent="2" text="Добавлено описание изменений в версиях."/>
+		<row/>
+		<row/><cell indent="1" text="Карточка счета" bold="1" italic="1" cols="2"/>
+		<row/><cell indent="2" text="При открытии устанавливается текущий период."/>
+		<row/><cell indent="2" text="Статья затрат не заполняется (нужно выбрать перед формированием)."/>
+		<row/>
+		<row/>
+		<row/>
+	</layout>
+	
+</unit>
