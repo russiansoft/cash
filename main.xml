@@ -7,7 +7,7 @@
 	
 	<type name="main" scope="global">
 		<function name="title">
-			<get value="Учет"/>
+			<get value="Деньги 1.0"/>
 		</function>
 	</type>
 	
@@ -59,6 +59,19 @@
 		<row indent="2">
 			<link reference="Итоги.Учет" type="list" text="Регистр бухгалтерских итогов"/>
 		</row>
+		
+		<row/>
+		<row/>
+		<row indent="1" text="Справка" bold="1" color="009646" cols="2"/>
+		<row/>
+		<row indent="2">
+			<link reference="Версия" type="report" text="Новое в версии"/>
+		</row>
+		<row/>
+		<row/>
+		<row/>
+		<row/>
+		<row/>
 	</layout>
 	
 	<!--Контакты-->
