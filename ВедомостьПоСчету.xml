@@ -12,8 +12,6 @@
 		<field.array name="Строки" type="Строка"/>
 		<field.array name="Всего" type="Всего"/>
 		
-		
-		
 		<function name="НачалоПериода">
 			<get field="Период.Начало"/>
 		</function>

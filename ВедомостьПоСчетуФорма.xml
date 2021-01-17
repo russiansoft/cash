@@ -15,6 +15,8 @@
 		<row indent="1">
 			<button name="Сформировать" text="Сформировать"/>
 		</row>
+		<bar/>
+		<bar/><cell/>
 		<nest field="Период"/>
 		<row/>
 		<row indent="2" text="Счет:"/>

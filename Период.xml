@@ -84,8 +84,7 @@
 	</type>
 
 	<layout name="Период">
-		<bar/>
-		<bar indent="2" text="Период с:"/>
+		<cell text="Период с:"/>
 		<cell bind="Начало" outline="2">
 			<edit type="date"/>
 			<tool type="calendar"/>

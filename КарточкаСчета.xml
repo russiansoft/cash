@@ -3,13 +3,22 @@
 <unit name="КарточкаСчета">
 
 	<type name="КарточкаСчета" title="Карточка счета" report="1" scope="global">
-		<field.ref name="Счет" type="ПланСчетов" width="10"/>
-		<field.ref name="СтатьяЗатрат" type="СтатьиЗатрат" width="10"/>
-		<field.date name="НачалоПериода" width="20"/>
-		<field.date name="ОкончаниеПериода" width="20"/>
+		<field.ref name="Счет" type="ПланСчетов"/>
+		<field.ref name="СтатьяЗатрат" type="СтатьиЗатрат"/>
+		<field.object name="Период" type="Период"/>
+		<field.date name="НачалоПериода"/>
+		<field.date name="ОкончаниеПериода"/>
 		<field.array name="Содержание" type="КарточкаСчета-Строка"/>
 		<field.array name="Обороты" type="КарточкаСчета-Обороты"/>
 		<field.array name="КонечноеСальдо" type="КарточкаСчета-КонечноеСальдо"/>
+		
+		<function name="НачалоПериода">
+			<get field="Период.Начало"/>
+		</function>
+		
+		<function name="ОкончаниеПериода">
+			<get field="Период.Окончание"/>
+		</function>
 		
 		<state name="constructor">
 			
@@ -51,6 +60,10 @@
 					<get value="1"/>
 					<get value="0"/>
 				</if>
+			</function>
+			
+			<function name="title">
+				<get value="(отчет не сформирован)"/>
 			</function>
 			
 		</state>
@@ -101,6 +114,16 @@
 				<select>
 					<get value="ЗапросКонечногоСальдо"/>
 				</select>
+			</function>
+			
+			<function name="title">
+				<string>
+					<get value=" за "/>
+					<period>
+						<get field="Период.Начало"/>
+						<get field="Период.Окончание"/>
+					</period>
+				</string>
 			</function>
 			
 		</state>

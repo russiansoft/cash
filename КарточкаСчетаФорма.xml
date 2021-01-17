@@ -17,16 +17,9 @@
 		<row indent="1" cols="2">
 			<button name="Сформировать" text="Сформировать"/>
 		</row>
-		<row indent="3" text="Период с:"/>
-		<cell bind="НачалоПериода" outline="2">
-			<edit type="date"/>
-			<tool type="calendar"/>
-		</cell>
-		<cell text="по:" align="center"/>
-		<cell bind="ОкончаниеПериода" outline="2">
-			<edit type="date"/>
-			<tool type="calendar"/>
-		</cell>
+		<bar/>
+		<bar/><cell/><cell/>
+		<nest field="Период"/>
 		<row/>
 		<row indent="3" text="Счет:"/>
 		<cell bind="Счет" outline="2" cols="3">
@@ -54,6 +47,9 @@
 		<cell text="Счет" align="center" border="0120"/>
 		<cell text="Сумма" align="center" border="0220"/>
 		<cell cols="2" border="0220"/>
+		<nest field="Содержание"/>
+		<nest field="Обороты"/>
+		<nest field="КонечноеСальдо"/>
 	</layout>
 	
 	<layout name="КарточкаСчета-Строка">
