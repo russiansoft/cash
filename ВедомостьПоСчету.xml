@@ -12,6 +12,8 @@
 		<field.array name="Строки" type="Строка"/>
 		<field.array name="Всего" type="Всего"/>
 		
+		
+		
 		<function name="НачалоПериода">
 			<get field="Период.Начало"/>
 		</function>
@@ -36,6 +38,10 @@
 				</seek>
 			</function>
 		
+			<function name="title">
+				<get value="(отчет не сформирован)"/>
+			</function>
+			
 		</state>
 		
 		<state name="ПоВсемГруппам">
@@ -101,6 +107,16 @@
 			
 			<function name="Сформировать">
 				<get value="0"/>
+			</function>
+			
+			<function name="title">
+				<string>
+					<get value=" за "/>
+					<period>
+						<get field="Период.Начало"/>
+						<get field="Период.Окончание"/>
+					</period>
+				</string>
 			</function>
 			
 		</state>
