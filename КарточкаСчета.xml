@@ -8,9 +8,9 @@
 		<field.object name="Период" type="Период"/>
 		<field.date name="НачалоПериода"/>
 		<field.date name="ОкончаниеПериода"/>
-		<field.array name="Содержание" type="КарточкаСчета-Строка"/>
-		<field.array name="Обороты" type="КарточкаСчета-Обороты"/>
-		<field.array name="КонечноеСальдо" type="КарточкаСчета-КонечноеСальдо"/>
+		<field.array name="Содержание" type="Строка"/>
+		<field.array name="Обороты" type="Обороты"/>
+		<field.array name="КонечноеСальдо" type="КонечноеСальдо"/>
 		
 		<function name="НачалоПериода">
 			<get field="Период.Начало"/>
@@ -98,24 +98,42 @@
 				<get value="0"/>
 			</function>
 			
-			<function name="Содержание">
-				<select>
-					<get value="ЗапросДвижений"/>
+			<query name="Содержание">
+				<select from="ИтогиУчет">
+					<where key="Счет" field="Счет"/>
+					<where key="СтатьяЗатрат" field="СтатьяЗатрат"/>
+					<range key="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
+					<detail field="Период" as="Дата"/>
+					<detail field="СуммаДт" as="ДО"/>
+					<detail field="СуммаКт" as="КО"/>
+					<detail field="id" as="ЗаписьНаСчете"/>
 				</select>
-			</function>
-			
-			<function name="Обороты">
-				<select>
-					<get value="ЗапросОборотов"/>
+			</query>
+	
+			<query name="Обороты">
+				<select from="ИтогиУчет">
+					<where key="Счет" field="Счет"/>
+					<where key="СтатьяЗатрат" field="СтатьяЗатрат"/>
+					<group key="Счет"/>
+					<group key="СтатьяЗатрат"/>
+					<range key="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
+					<sum total="СуммаДт" as="ДО"/>
+					<sum total="СуммаКт" as="КО"/>
 				</select>
-			</function>
-			
-			<function name="КонечноеСальдо">
-				<select>
-					<get value="ЗапросКонечногоСальдо"/>
+			</query>
+
+			<query name="КонечноеСальдо">
+				<select from="ИтогиУчет">
+					<where key="Счет" field="Счет"/>
+					<where key="СтатьяЗатрат" field="СтатьяЗатрат"/>
+					<group key="Счет"/>
+					<group key="СтатьяЗатрат"/>
+					<range key="Период" to="ОкончаниеПериода"/>
+					<sum total="СуммаДт" as="ДО"/>
+					<sum total="СуммаКт" as="КО"/>
 				</select>
-			</function>
-			
+			</query>
+	
 			<function name="title">
 				<string>
 					<get value=" за "/>
@@ -133,7 +151,7 @@
 		</index>
 	</type>
 		
-	<type name="КарточкаСчета-Строка" scope="global">
+	<type name="Строка">
 		<field.ref name="Счет" type="ПланСчетов"/>
 		<field.ref name="СтатьяЗатрат" type="СтатьиЗатрат"/>
 		<field.date name="Дата"/>
@@ -220,28 +238,16 @@
 		
 	</type>
 	
-	<type name="КарточкаСчета-Обороты" scope="global">
+	<type name="Обороты">
 		<field.number name="ДО" precision="2"/>
 		<field.number name="КО" precision="2"/>
 	</type>
 		
-	<type name="КарточкаСчета-КонечноеСальдо" scope="global">
+	<type name="КонечноеСальдо">
 		<field.number name="ДО" precision="2"/>
 		<field.number name="КО" precision="2"/>
 	</type>
 		
-	<query name="ЗапросДвижений">
-		<select from="ИтогиУчет">
-			<where key="Счет" field="Счет"/>
-			<where key="СтатьяЗатрат" field="СтатьяЗатрат"/>
-			<range key="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
-			<detail field="Период" as="Дата"/>
-			<detail field="СуммаДт" as="ДО"/>
-			<detail field="СуммаКт" as="КО"/>
-			<detail field="id" as="ЗаписьНаСчете"/>
-		</select>
-	</query>
-	
 	<query name="ЗапросСальдоСтроки">
 		<select from="ИтогиУчет">
 			<where key="Счет" field="Счет"/>
@@ -251,30 +257,6 @@
 			<where key="Время" to="ВремяЗаписи"/>
 			<where key="Порядок" to="ПорядокЗаписи"/>
 			<where key="id" to="ЗаписьНаСчете"/>
-		</select>
-	</query>
-	
-	<query name="ЗапросОборотов">
-		<select from="ИтогиУчет">
-			<where key="Счет" field="Счет"/>
-			<where key="СтатьяЗатрат" field="СтатьяЗатрат"/>
-			<group key="Счет"/>
-			<group key="СтатьяЗатрат"/>
-			<range key="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
-			<sum total="СуммаДт" as="ДО"/>
-			<sum total="СуммаКт" as="КО"/>
-		</select>
-	</query>
-
-	<query name="ЗапросКонечногоСальдо">
-		<select from="ИтогиУчет">
-			<where key="Счет" field="Счет"/>
-			<where key="СтатьяЗатрат" field="СтатьяЗатрат"/>
-			<group key="Счет"/>
-			<group key="СтатьяЗатрат"/>
-			<range key="Период" to="ОкончаниеПериода"/>
-			<sum total="СуммаДт" as="ДО"/>
-			<sum total="СуммаКт" as="КО"/>
 		</select>
 	</query>
 	
