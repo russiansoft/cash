@@ -55,13 +55,13 @@
 	<layout name="КарточкаСчета-Строка">
 		<row indent="1" bind="Дата" border="0112"/>
 		<cell bind="Операция" border="0110"/>
-		<cell bind="Комментарий" border="0210"/>
-		<cell border="0110"/>
+		<cell bind="Комментарий" border="0210" wrap="1"/>
+		<cell bind="СчетДебета" border="0110"/>
 		<cell bind="ДО" align="right" border="0210">
 			<label text=" " grow="1"/>
 			<link reference="УчетнаяОперация" type="edit" drill="Документ"/>
 		</cell>
-		<cell border="0110"/>
+		<cell bind="СчетКредита" border="0110"/>
 		<cell bind="КО" align="right" border="0210">
 			<label text=" " grow="1"/>
 			<link reference="УчетнаяОперация"/>

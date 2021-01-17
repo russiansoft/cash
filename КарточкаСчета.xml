@@ -157,6 +157,8 @@
 		<field.date name="Дата"/>
 		<field.string name="Операция"/>
 		<field.string name="Комментарий"/>
+		<field.string name="СчетДебета"/>
+		<field.string name="СчетКредита"/>
 		<field.ref name="ЗаписьНаСчете"/>
 		<field.ref name="Документ"/>
 		<field.string name="ДатаЗаписи"/>
@@ -213,11 +215,27 @@
 		</function>
 		
 		<function name="Операция">
-			<get field="ЗаписьНаСчете.owner.owner.Номер"/>
+			<string>
+				<get value="Операция №"/>
+				<get field="ЗаписьНаСчете.owner.owner.Номер"/>
+			</string>
 		</function>
 		
 		<function name="Комментарий">
-			<get field="ЗаписьНаСчете.owner.owner.Комментарий"/>
+			<concat>
+				<br/>
+				<get field="ЗаписьНаСчете.owner.owner.Комментарий"/>
+				<get field="ЗаписьНаСчете.owner.owner.СтатьяДебета.Наименование"/>
+				<get field="ЗаписьНаСчете.owner.owner.СтатьяКредита.Наименование"/>
+			</concat>
+		</function>
+		
+		<function name="СчетДебета">
+			<get field="ЗаписьНаСчете.owner.СчетДт.Код"/>
+		</function>
+		
+		<function name="СчетКредита">
+			<get field="ЗаписьНаСчете.owner.СчетКт.Код"/>
 		</function>
 		
 		<function name="Документ">
