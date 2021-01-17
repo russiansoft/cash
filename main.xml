@@ -7,7 +7,7 @@
 	
 	<type name="main" scope="global">
 		<function name="title">
-			<get value="Деньги 1.1"/>
+			<get value="Деньги 1.2"/>
 		</function>
 	</type>
 	
