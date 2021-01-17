@@ -1,9 +1,6 @@
 */
-*.ilk
-*.pdb
-*.exe
-*.log
 *.lnk
+composer.*
 favicon.*
 config.xml
 database.xml

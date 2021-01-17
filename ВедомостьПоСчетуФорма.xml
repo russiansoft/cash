@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="ВедомостьПоСчетуФорма">
+	
+	<layout name="ВедомостьПоСчету">
+		<column width="2"/>
+		<column width="30"/>
+		<column width="13"/>
+		<column width="13"/>
+		<column width="13"/>
+		<column width="13"/>
+		<column width="13"/>
+		<column width="13"/>
+		<row/>
+		<row indent="1">
+			<button name="Сформировать" text="Сформировать"/>
+		</row>
+		<nest field="Период"/>
+		<row/>
+		<row indent="2" text="Счет:"/>
+		<cell bind="Счет" outline="2" cols="3">
+			<edit type="ref"/>
+			<tool type="choosing"/>
+		</cell>
+		<row/>
+		<row indent="2" text="Группа:"/>
+		<cell bind="Группа" outline="2" cols="3">
+			<edit type="ref"/>
+			<tool type="choosing"/>
+			<button name="ПоВсемГруппам" text="По всем"/>
+		</cell>
+		<row/>
+		<row indent="1" text="Наименование" align="center" border="2202"/>
+		<cell text="Сальдо на начало периода" cols="2" align="center" border="2110"/>
+		<cell text="Обороты за период" cols="2" align="center" border="2110"/>
+		<cell text="Сальдо на конец периода" cols="2" align="center" border="2210"/>
+		<row indent="1" border="0222"/>
+		<cell text="Дебет" align="center" border="0120"/>
+		<cell text="Кредит" align="center" border="0120"/>
+		<cell text="Дебет" align="center" border="0120"/>
+		<cell text="Кредит" align="center" border="0120"/>
+		<cell text="Дебет" align="center" border="0120"/>
+		<cell text="Кредит" align="center" border="0220"/>
+		<nest field="Строки"/>
+		<nest field="Всего"/>
+	</layout>
+	
+	<layout name="ВедомостьПоСчету-Строка">
+		<row indent="1" bind="Наименование" border="0212"/>
+		<cell bind="СНД" align="right" border="0110"/>
+		<cell bind="СНК" align="right" border="0110"/>
+		<cell bind="ДО" align="right" border="0110">
+			<label text=" " grow="1"/>
+			<link reference="КарточкаСчета" type="report"/>  <!--drill="РасшифровкаВедомости"-->
+		</cell>
+		<cell bind="КО" align="right" border="0110">
+			<label text=" " grow="1"/>
+			<link reference="КарточкаСчета" type="report"/>  <!--drill="РасшифровкаВедомости"-->
+		</cell>
+		<cell bind="СКД" align="right" border="0110"/>
+		<cell bind="СКК" align="right" border="0210"/>
+	</layout>
+	
+	<layout name="ВедомостьПоСчету-Всего">
+		<row indent="1" text="Всего" border="1222"/>
+		<cell bind="СНД" align="right" border="1120"/>
+		<cell bind="СНК" align="right" border="1120"/>
+		<cell bind="ДО" align="right" border="1120"/>
+		<cell bind="КО" align="right" border="1120"/>
+		<cell bind="СКД" align="right" border="1120"/>
+		<cell bind="СКК" align="right" border="1220"/>
+		<row/>
+	</layout>
+	
+</unit>
