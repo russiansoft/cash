@@ -12,6 +12,14 @@
 		<column width="4"/>
 		<column width="100"/>
 		<row/>
+		<row/><cell text="Версия 1.1" size="20" bold="1" underline="1" cols="3"/>
+		<row/>
+		<row/><cell indent="1" text="Ведомость по счету" bold="1" italic="1" cols="2"/>
+		<row/><cell indent="2" text="Исправлен расчет итога."/>
+		<row/><cell indent="2" text="Добавлены кнопки выбора периода."/>
+		<row/><cell indent="2" text="Возможность формирования по всем группам."/>
+		<row/><cell indent="2" text="Уменьшена ширина колонок."/>
+		<row/>
 		<row/><cell text="Версия 1.0" size="20" bold="1" underline="1" cols="3"/>
 		<row/>
 		<row/><cell indent="1" text="Общее" bold="1" italic="1" cols="2"/>
