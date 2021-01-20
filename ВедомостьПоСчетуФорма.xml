@@ -64,13 +64,13 @@
 	</layout>
 	
 	<layout name="ВедомостьПоСчету-Всего">
-		<row indent="1" text="Всего" border="1222"/>
-		<cell bind="СНД" align="right" border="1120"/>
-		<cell bind="СНК" align="right" border="1120"/>
-		<cell bind="ДО" align="right" border="1120"/>
-		<cell bind="КО" align="right" border="1120"/>
-		<cell bind="СКД" align="right" border="1120"/>
-		<cell bind="СКК" align="right" border="1220"/>
+		<row indent="1" text="Всего" border="2222"/>
+		<cell bind="СНД" align="right" border="2120"/>
+		<cell bind="СНК" align="right" border="2120"/>
+		<cell bind="ДО" align="right" border="2120"/>
+		<cell bind="КО" align="right" border="2120"/>
+		<cell bind="СКД" align="right" border="2120"/>
+		<cell bind="СКК" align="right" border="2220"/>
 		<row/>
 	</layout>
 	
