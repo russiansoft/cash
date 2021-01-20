@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<package name="cash" version="1.0">
+<package name="cash" version="">
 	<include unit="main"/>
 	<include unit="Версия"/>
 	<include unit="ПланСчетов"/>
