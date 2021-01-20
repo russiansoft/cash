@@ -49,17 +49,10 @@
 			</function>
 			
 			<function name="РасшифровкаВедомости">
-				<if>
-					<eq>
-						<compare>
-							<type><get field="parent"/></type>
-							<get value="СтрокаВедомостиПоСчету"/>
-						</compare>
-						<get value="0"/>
-					</eq>
-					<get value="1"/>
-					<get value="0"/>
-				</if>
+				<eqs>
+					<type><get field="parent"/></type>
+					<get value="ВедомостьПоСчету-Строка"/>
+				</eqs>
 			</function>
 			
 			<function name="title">
