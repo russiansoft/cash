@@ -221,9 +221,9 @@
 				<eq><get field="КО"/><get value="0"/></eq>
 				<eq><get field="СКД"/><get value="0"/></eq>
 				<eq><get field="СКК"/><get value="0"/></eq>
-				<eq><get field="ИтогСНД"/><get value="0"/></eq>
-				<eq><get field="ИтогСНК"/><get value="0"/></eq>
-				<eq><get field="ИтогСКК"/><get value="0"/></eq>
+				<!--<eq><get field="ИтогСНД"/><get value="0"/></eq>-->
+				<!--<eq><get field="ИтогСНК"/><get value="0"/></eq>-->
+				<!--<eq><get field="ИтогСКК"/><get value="0"/></eq>-->
 			</and>
 		</function>
 		
