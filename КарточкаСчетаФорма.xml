@@ -65,7 +65,7 @@
 		<cell bind="СчетКредита" border="0110"/>
 		<cell bind="КО" align="right" border="0210">
 			<label text=" " grow="1"/>
-			<link reference="УчетнаяОперация"/>
+			<link reference="УчетнаяОперация" type="edit" drill="Документ"/>
 		</cell>
 		<cell bind="Признак" border="0010"/>
 		<cell bind="Сальдо" align="right" border="0210"/>
