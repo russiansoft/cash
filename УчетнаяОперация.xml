@@ -9,7 +9,7 @@
 		<field.number name="Год"/>
 		<field.ref name="СтатьяДебета" type="СтатьиЗатрат" title="Статья дебета" width="12" indexing="key"/>
 		<field.ref name="СтатьяКредита" type="СтатьиЗатрат" title="Статья кредита" width="12" indexing="key"/>
-		<field.number name="Сумма" width="7" indexing="total"/>
+		<field.number name="Сумма" width="7" align="right" indexing="total"/>
 		<field.string name="Комментарий" width="20"/>
 		<field.object name="Операция" type="Операция"/>
 		<field.object name="Проводка" type="Проводка"/>
