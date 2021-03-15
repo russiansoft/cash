@@ -43,6 +43,19 @@
 			<total field="КоличествоКт" precision="3"/>
 		</index>
 
+		<index name="ИтогиУчет">
+			<key field="Счет"/>
+			<key field="СтатьяЗатрат"/>
+			<key field="Период"/>
+			<key field="Дата"/>
+			<key field="Время"/>
+			<key field="Порядок"/>
+			<total field="СуммаДт" precision="2"/>
+			<total field="СуммаКт" precision="2"/>
+			<total field="КоличествоДт" precision="3"/>
+			<total field="КоличествоКт" precision="3"/>
+		</index>
+
 		<state name="Учет">
 			<field.ref name="СтатьяЗатрат" type="СтатьиЗатрат" title="Статья затрат" width="20"/>
 			
@@ -50,19 +63,6 @@
 				<get field="Аналитика.СтатьяЗатрат"/>
 			</function>
 			
-			<index name="ИтогиУчет">
-				<key field="Счет"/>
-				<key field="СтатьяЗатрат"/>
-				<key field="Период"/>
-				<key field="Дата"/>
-				<key field="Время"/>
-				<key field="Порядок"/>
-				<total field="СуммаДт" precision="2"/>
-				<total field="СуммаКт" precision="2"/>
-				<total field="КоличествоДт" precision="3"/>
-				<total field="КоличествоКт" precision="3"/>
-			</index>
-
 		</state>
 		
 		<access.write role="1Cv77"/>
