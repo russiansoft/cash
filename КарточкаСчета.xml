@@ -96,10 +96,10 @@
 					<where key="Счет" field="Счет"/>
 					<where key="СтатьяЗатрат" field="СтатьяЗатрат"/>
 					<range key="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
-					<detail field="Период" as="Дата"/>
-					<detail field="СуммаДт" as="ДО"/>
-					<detail field="СуммаКт" as="КО"/>
-					<detail field="id" as="ЗаписьНаСчете"/>
+					<get field="Период" as="Дата"/>
+					<get field="СуммаДт" as="ДО"/>
+					<get field="СуммаКт" as="КО"/>
+					<get field="id" as="ЗаписьНаСчете"/>
 				</select>
 			</query>
 	
@@ -110,8 +110,8 @@
 					<group key="Счет"/>
 					<group key="СтатьяЗатрат"/>
 					<range key="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
-					<sum total="СуммаДт" as="ДО"/>
-					<sum total="СуммаКт" as="КО"/>
+					<get total="СуммаДт" as="ДО"/>
+					<get total="СуммаКт" as="КО"/>
 				</select>
 			</query>
 
@@ -122,8 +122,8 @@
 					<group key="Счет"/>
 					<group key="СтатьяЗатрат"/>
 					<range key="Период" to="ОкончаниеПериода"/>
-					<sum total="СуммаДт" as="ДО"/>
-					<sum total="СуммаКт" as="КО"/>
+					<get total="СуммаДт" as="ДО"/>
+					<get total="СуммаКт" as="КО"/>
 				</select>
 			</query>
 	

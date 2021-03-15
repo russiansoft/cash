@@ -60,8 +60,8 @@
 					<group key="Счет"/>
 					<group key="СтатьяЗатрат" as="Наименование"/>
 					<range key="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
-					<sum total="СуммаДт" as="ДО"/>
-					<sum total="СуммаКт" as="КО"/>
+					<get total="СуммаДт" as="ДО"/>
+					<get total="СуммаКт" as="КО"/>
 				</select>
 				
 				<!--Выборка конечного сальдо-->
@@ -70,8 +70,8 @@
 					<group key="Счет"/>
 					<group key="СтатьяЗатрат" as="Наименование"/>
 					<range key="Период" to="ОкончаниеПериода"/>
-					<sum total="СуммаДт" as="СКД"/>
-					<sum total="СуммаКт" as="СКК"/>
+					<get total="СуммаДт" as="СКД"/>
+					<get total="СуммаКт" as="СКК"/>
 				</select>
 			</query>
 				
@@ -83,10 +83,10 @@
 					<group key="Отбор"/>
 					<group key="Представление" as="Представление"/>
 					<group key="Наименование" as="Наименование"/>
-					<sum total="ДО" as="ДО"/>
-					<sum total="КО" as="КО"/>
-					<sum total="СКД" as="ИтогСКД"/>
-					<sum total="СКК" as="ИтогСКК"/>
+					<get total="ДО" as="ДО"/>
+					<get total="КО" as="КО"/>
+					<get total="СКД" as="ИтогСКД"/>
+					<get total="СКК" as="ИтогСКК"/>
 				</select>
 			</query>
 			
@@ -94,12 +94,12 @@
 				<select from="ВедомостьПоСчету-Строка">
 					<where key="owner" field="id"/>
 					<group key="owner"/>
-					<sum total="СНД" as="СНД"/>
-					<sum total="СНК" as="СНК"/>
-					<sum total="ДО" as="ДО"/>
-					<sum total="КО" as="КО"/>
-					<sum total="СКД" as="СКД"/>
-					<sum total="СКК" as="СКК"/>
+					<get total="СНД" as="СНД"/>
+					<get total="СНК" as="СНК"/>
+					<get total="ДО" as="ДО"/>
+					<get total="КО" as="КО"/>
+					<get total="СКД" as="СКД"/>
+					<get total="СКК" as="СКК"/>
 				</select>
 			</query>
 			
