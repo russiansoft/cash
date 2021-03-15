@@ -3,6 +3,7 @@
 <unit name="Итоги">
 	
 	<type name="Итоги" scope="global">
+		<field.number name="ГруппировкаДляИтога"/>
 		<field.date name="Период" width="10"/>
 		<field.string name="Дата" width="10"/>
 		<field.string name="Время" width="10"/>

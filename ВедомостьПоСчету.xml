@@ -55,9 +55,9 @@
 			<query name="Выборка">
 				
 				<!--Выборка оборотов-->
-				<select from="ИтогиУчет">
+				<select from="Итоги">
 					<where key="Счет" field="Счет"/>
-					<group key="Счет"/>
+					<!--<group key="Счет"/>-->
 					<group key="СтатьяЗатрат" as="Наименование"/>
 					<range key="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
 					<get total="СуммаДт" as="ДО"/>
@@ -65,9 +65,9 @@
 				</select>
 				
 				<!--Выборка конечного сальдо-->
-				<select from="ИтогиУчет">
+				<select from="Итоги">
 					<where key="Счет" field="Счет"/>
-					<group key="Счет"/>
+					<!--<group key="Счет"/>-->
 					<group key="СтатьяЗатрат" as="Наименование"/>
 					<range key="Период" to="ОкончаниеПериода"/>
 					<get total="СуммаДт" as="СКД"/>
@@ -79,8 +79,8 @@
 				<select from="ВедомостьПоСчету-Выборка">
 					<where key="owner" field="id"/>
 					<where key="Отбор" value="1"/>
-					<group key="owner"/>
-					<group key="Отбор"/>
+					<!--<group key="owner"/>
+					<group key="Отбор"/>-->
 					<group key="Представление" as="Представление"/>
 					<group key="Наименование" as="Наименование"/>
 					<get total="ДО" as="ДО"/>
@@ -93,7 +93,7 @@
 			<query name="Всего">
 				<select from="ВедомостьПоСчету-Строка">
 					<where key="owner" field="id"/>
-					<group key="owner"/>
+					<group key="ГруппировкаДляИтога"/>
 					<get total="СНД" as="СНД"/>
 					<get total="СНК" as="СНК"/>
 					<get total="ДО" as="ДО"/>
@@ -164,6 +164,7 @@
 	</type>
 	
 	<type name="Строка">
+		<field.number name="ГруппировкаДляИтога"/>
 		<field.ref name="Наименование"/>
 		<field.string name="Представление"/>
 		<field.number name="СНД" precision="2"/>
@@ -229,6 +230,7 @@
 		
 		<index name="ВедомостьПоСчету-Строка">
 			<key field="owner"/>
+			<key field="ГруппировкаДляИтога"/>
 			<total field="СНД"/>
 			<total field="СНК"/>
 			<total field="ДО"/>
