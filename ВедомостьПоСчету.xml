@@ -56,20 +56,20 @@
 				
 				<!--Выборка оборотов-->
 				<select from="Итоги">
-					<where key="Счет" field="Счет"/>
-					<!--<group key="Счет"/>-->
-					<group key="СтатьяЗатрат" as="Наименование"/>
-					<range key="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
+					<filter by="Счет" field="Счет"/>
+					<!--<group by="Счет"/>-->
+					<group by="СтатьяЗатрат" as="Наименование"/>
+					<range by="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
 					<get total="СуммаДт" as="ДО"/>
 					<get total="СуммаКт" as="КО"/>
 				</select>
 				
 				<!--Выборка конечного сальдо-->
 				<select from="Итоги">
-					<where key="Счет" field="Счет"/>
-					<!--<group key="Счет"/>-->
-					<group key="СтатьяЗатрат" as="Наименование"/>
-					<range key="Период" to="ОкончаниеПериода"/>
+					<filter by="Счет" field="Счет"/>
+					<!--<group by="Счет"/>-->
+					<group by="СтатьяЗатрат" as="Наименование"/>
+					<range by="Период" to="ОкончаниеПериода"/>
 					<get total="СуммаДт" as="СКД"/>
 					<get total="СуммаКт" as="СКК"/>
 				</select>
@@ -77,12 +77,12 @@
 				
 			<query name="Строки">
 				<select from="ВедомостьПоСчету-Выборка">
-					<where key="owner" field="id"/>
-					<where key="Отбор" value="1"/>
-					<!--<group key="owner"/>
-					<group key="Отбор"/>-->
-					<group key="Представление" as="Представление"/>
-					<group key="Наименование" as="Наименование"/>
+					<filter by="owner" field="id"/>
+					<filter by="Отбор" value="1"/>
+					<!--<group by="owner"/>
+					<group by="Отбор"/>-->
+					<group by="Представление" as="Представление"/>
+					<group by="Наименование" as="Наименование"/>
 					<get total="ДО" as="ДО"/>
 					<get total="КО" as="КО"/>
 					<get total="СКД" as="ИтогСКД"/>
@@ -92,8 +92,8 @@
 			
 			<query name="Всего">
 				<select from="ВедомостьПоСчету-Строка">
-					<where key="owner" field="id"/>
-					<group key="ГруппировкаДляИтога"/>
+					<filter by="owner" field="id"/>
+					<group by="ГруппировкаДляИтога"/>
 					<get total="СНД" as="СНД"/>
 					<get total="СНК" as="СНК"/>
 					<get total="ДО" as="ДО"/>

@@ -130,15 +130,15 @@
 	
 	<query name="ЗапросОстаткаДт">
 		<select from="ИтогиУчет">
-			<where key="Счет" value="ПланСчетов.УЧТ"/>
-			<where key="СтатьяЗатрат" field="СтатьяДебета"/>
+			<filter by="Счет" value="ПланСчетов.УЧТ"/>
+			<filter by="СтатьяЗатрат" field="СтатьяДебета"/>
 		</select>
 	</query>
 	
 	<query name="ЗапросОстаткаКт">
 		<select from="ИтогиУчет">
-			<where key="Счет" value="ПланСчетов.УЧТ"/>
-			<where key="СтатьяЗатрат" field="СтатьяКредита"/>
+			<filter by="Счет" value="ПланСчетов.УЧТ"/>
+			<filter by="СтатьяЗатрат" field="СтатьяКредита"/>
 		</select>
 	</query>
 	

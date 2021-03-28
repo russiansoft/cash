@@ -93,9 +93,9 @@
 			
 			<query name="Содержание">
 				<select from="Итоги">
-					<where key="Счет" field="Счет"/>
-					<where key="СтатьяЗатрат" field="СтатьяЗатрат"/>
-					<range key="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
+					<filter by="Счет" field="Счет"/>
+					<filter by="СтатьяЗатрат" field="СтатьяЗатрат"/>
+					<range by="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
 					<get field="Период" as="Дата"/>
 					<get field="СуммаДт" as="ДО"/>
 					<get field="СуммаКт" as="КО"/>
@@ -105,12 +105,12 @@
 	
 			<query name="Обороты">
 				<select from="Итоги">
-					<where key="Счет" field="Счет"/>
-					<where key="СтатьяЗатрат" field="СтатьяЗатрат"/>
-					<group key="ГруппировкаДляИтога"/>
-					<!--<group key="Счет"/>
-					<group key="СтатьяЗатрат"/>-->
-					<range key="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
+					<filter by="Счет" field="Счет"/>
+					<filter by="СтатьяЗатрат" field="СтатьяЗатрат"/>
+					<group by="ГруппировкаДляИтога"/>
+					<!--<group by="Счет"/>
+					<group by="СтатьяЗатрат"/>-->
+					<range by="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
 					<get total="СуммаДт" as="ДО"/>
 					<get total="СуммаКт" as="КО"/>
 				</select>
@@ -118,12 +118,12 @@
 
 			<query name="КонечноеСальдо">
 				<select from="Итоги">
-					<where key="Счет" field="Счет"/>
-					<where key="СтатьяЗатрат" field="СтатьяЗатрат"/>
-					<group key="ГруппировкаДляИтога"/>
-					<!--<group key="Счет"/>
-					<group key="СтатьяЗатрат"/>-->
-					<range key="Период" to="ОкончаниеПериода"/>
+					<filter by="Счет" field="Счет"/>
+					<filter by="СтатьяЗатрат" field="СтатьяЗатрат"/>
+					<group by="ГруппировкаДляИтога"/>
+					<!--<group by="Счет"/>
+					<group by="СтатьяЗатрат"/>-->
+					<range by="Период" to="ОкончаниеПериода"/>
 					<get total="СуммаДт" as="ДО"/>
 					<get total="СуммаКт" as="КО"/>
 				</select>
@@ -263,13 +263,13 @@
 		
 	<query name="ЗапросСальдоСтроки">
 		<select from="Итоги">
-			<where key="Счет" field="Счет"/>
-			<where key="СтатьяЗатрат" field="СтатьяЗатрат"/>
-			<where key="Период" to="Дата"/>
-			<where key="Дата" to="ДатаЗаписи"/>
-			<where key="Время" to="ВремяЗаписи"/>
-			<where key="Порядок" to="ПорядокЗаписи"/>
-			<where key="id" to="ЗаписьНаСчете"/>
+			<filter by="Счет" field="Счет"/>
+			<filter by="СтатьяЗатрат" field="СтатьяЗатрат"/>
+			<filter by="Период" to="Дата"/>
+			<filter by="Дата" to="ДатаЗаписи"/>
+			<filter by="Время" to="ВремяЗаписи"/>
+			<filter by="Порядок" to="ПорядокЗаписи"/>
+			<filter by="id" to="ЗаписьНаСчете"/>
 		</select>
 	</query>
 	
