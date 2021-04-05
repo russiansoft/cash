@@ -11,7 +11,7 @@
 		</function>
 	</type>
 	
-	<layout name="main">
+	<form name="main">
 		<column width="2"/>
 		<column width="4"/>
 		<column width="60"/>
@@ -72,7 +72,7 @@
 		<row/>
 		<row/>
 		<row/>
-	</layout>
+	</form>
 	
 	<!--Контакты-->
 	<!--<type name="phone" title="Телефоны">
@@ -93,7 +93,7 @@
 		</index>
 	</type>-->
 
-	<layout name="Контакт">
+	<form name="Контакт">
 		<column width="30"/>
 		<column width="30"/>
 		<column width="10"/>
@@ -155,6 +155,6 @@
 			<edit bind="Телефон10" grow="1"/>
 			<button name="Call10" text="Позвонить" vertical="baseline"/>
 		</cell>
-	</layout>
+	</form>
 	
 </unit>

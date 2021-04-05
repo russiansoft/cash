@@ -2,7 +2,7 @@
 
 <unit name="ВедомостьПоСчетуФорма">
 	
-	<layout name="ВедомостьПоСчету">
+	<form name="ВедомостьПоСчету">
 		<column width="2"/>
 		<column width="30"/>
 		<column width="13"/>
@@ -45,9 +45,9 @@
 		<cell text="Кредит" align="center" border="0220"/>
 		<nest field="Строки"/>
 		<nest field="Всего"/>
-	</layout>
+	</form>
 	
-	<layout name="ВедомостьПоСчету-Строка">
+	<form name="ВедомостьПоСчету-Строка">
 		<row indent="1" bind="Наименование" border="0212"/>
 		<cell bind="СНД" align="right" border="0110"/>
 		<cell bind="СНК" align="right" border="0110"/>
@@ -61,9 +61,9 @@
 		</cell>
 		<cell bind="СКД" align="right" border="0110"/>
 		<cell bind="СКК" align="right" border="0210"/>
-	</layout>
+	</form>
 	
-	<layout name="ВедомостьПоСчету-Всего">
+	<form name="ВедомостьПоСчету-Всего">
 		<row indent="1" text="Всего" border="2222"/>
 		<cell bind="СНД" align="right" border="2120"/>
 		<cell bind="СНК" align="right" border="2120"/>
@@ -72,6 +72,6 @@
 		<cell bind="СКД" align="right" border="2120"/>
 		<cell bind="СКК" align="right" border="2220"/>
 		<row/>
-	</layout>
+	</form>
 	
 </unit>

@@ -6,7 +6,7 @@
 		
 	</type>
 	
-	<layout name="Версия">
+	<form name="Версия">
 		<column width="2"/>
 		<column width="4"/>
 		<column width="4"/>
@@ -54,6 +54,6 @@
 		<row/>
 		<row/>
 		<row/>
-	</layout>
+	</form>
 	
 </unit>

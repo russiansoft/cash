@@ -24,7 +24,7 @@
 		<access.allow role="Бухгалтер"/>
 	</type>
 	
-	<layout name="ПланСчетов">
+	<form name="ПланСчетов">
 		<column width="2"/>
 		<column width="30"/>
 		<column width="30"/>
@@ -42,6 +42,6 @@
 		<cell bind="Наименование" outline="2">
 			<edit grow="1"/>
 		</cell>
-	</layout>
+	</form>
 	
 </unit>

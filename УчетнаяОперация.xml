@@ -142,7 +142,7 @@
 		</select>
 	</query>
 	
-	<layout name="УчетнаяОперация">
+	<form name="УчетнаяОперация">
 		<column width="2"/>
 		<column width="14"/>
 		<column width="14"/>
@@ -196,6 +196,6 @@
 		<row/>
 		<row/>
 		<row/>
-	</layout>
+	</form>
 	
 </unit>

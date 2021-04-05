@@ -31,7 +31,7 @@
 		
 	</type>
 	
-	<layout name="СтатьиЗатрат-Группы">
+	<form name="СтатьиЗатрат-Группы">
 		<column width="2"/>
 		<column width="30"/>
 		<column width="30"/>
@@ -50,9 +50,9 @@
 			<edit type="ref" grow="1"/>
 			<tool type="choosing"/>
 		</cell>-->
-	</layout>
+	</form>
 	
-	<layout name="СтатьиЗатрат">
+	<form name="СтатьиЗатрат">
 		<column width="2"/>
 		<column width="30"/>
 		<column width="30"/>
@@ -71,6 +71,6 @@
 			<edit type="ref" grow="1"/>
 			<tool type="choosing"/>
 		</cell>
-	</layout>
+	</form>
 	
 </unit>
