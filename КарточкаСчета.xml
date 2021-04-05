@@ -49,10 +49,10 @@
 			</function>
 			
 			<function name="РасшифровкаВедомости">
-				<eqs>
+				<is>
 					<type><get field="parent"/></type>
 					<get value="ВедомостьПоСчету-Строка"/>
-				</eqs>
+				</is>
 			</function>
 			
 			<function name="title">
