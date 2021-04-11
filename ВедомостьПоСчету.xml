@@ -108,13 +108,13 @@
 			</function>
 			
 			<function name="title">
-				<string>
+				<join>
 					<get value=" за "/>
 					<period>
 						<get field="Период.Начало"/>
 						<get field="Период.Окончание"/>
 					</period>
-				</string>
+				</join>
 			</function>
 			
 		</state>

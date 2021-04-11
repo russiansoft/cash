@@ -14,11 +14,11 @@
 		<field.number name="КоличествоКт" precision="3"/>
 		
 		<function name="title">
-			<string>
+			<join>
 				<get field="Период"/>
 				<get value=" "/>
 				<get field="Сумма"/>
-			</string>
+			</join>
 		</function>
 	
 		<function name="Проведенная">
