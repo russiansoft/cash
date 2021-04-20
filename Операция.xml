@@ -5,6 +5,7 @@
 	<type name="Операция" scope="global">
 		<default name="Проведенная"/>
 		
+		<state name="Проведенная"/>
 		<state name="Непроведенная"/>
 		
 		<function name="Проведенная">
