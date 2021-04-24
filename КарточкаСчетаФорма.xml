@@ -39,7 +39,7 @@
 		<cell text="Операции" align="center" border="2200"/>
 		<cell text="Дебет" align="center" cols="2" border="2210"/>
 		<cell text="Кредит" align="center" cols="2" border="2210"/>
-		<cell text="Текущее сальдо" align="center" cols="2" border="2200"/>
+		<cell text="Текущее сальдо" align="center" wrap="1" cols="2" border="2200"/>
 		<row indent="1" border="0122"/>
 		<cell border="0120"/>
 		<cell border="0220"/>
@@ -48,6 +48,7 @@
 		<cell text="Счет" align="center" border="0120"/>
 		<cell text="Сумма" align="center" border="0220"/>
 		<cell cols="2" border="0220"/>
+		<nest field="НачальноеСальдо"/>
 		<nest field="Содержание"/>
 		<nest field="Обороты"/>
 		<nest field="КонечноеСальдо"/>
@@ -69,23 +70,38 @@
 		</cell>
 		<cell bind="Признак" border="0010"/>
 		<cell bind="Сальдо" align="right" border="0210"/>
+		<nest field="СальдоСтроки"/>
 	</form>
 	
+	<!--<form name="КарточкаСчета-СальдоСтроки">
+		<row indent="5" bind="ИтогСКД" align="right" color="00ff00"/>
+		<cell indent="1" bind="ИтогСКК" align="right" color="00ff00"/>
+	</form>-->
+	
 	<form name="КарточкаСчета-Обороты">
-		<row indent="1" text="Обороты за период" border="1222" cols="3"/>
-		<cell border="1120"/>
-		<cell bind="ДО" align="right" border="1220"/>
-		<cell border="1120"/>
-		<cell bind="КО" align="right" border="1220"/>
-		<cell cols="2" border="1220"/>
+		<row indent="1" text="Обороты за период" border="2222" cols="3"/>
+		<cell border="2120"/>
+		<cell bind="ДО" align="right" border="2220"/>
+		<cell border="2120"/>
+		<cell bind="КО" align="right" border="2220"/>
+		<cell cols="2" border="2220"/>
+	</form>
+	
+	<form name="КарточкаСчета-НачальноеСальдо">
+		<row indent="1" bind="Наименование" border="0222" cols="3"/>
+		<cell border="0120"/>
+		<cell bind="СНД" align="right" border="0220"/>
+		<cell border="0120"/>
+		<cell bind="СНК" align="right" border="0220"/>
+		<cell cols="2" border="0220"/>
 	</form>
 	
 	<form name="КарточкаСчета-КонечноеСальдо">
-		<row indent="1" text="Сальдо" border="0222" cols="3"/>
+		<row indent="1" bind="Наименование" border="0222" cols="3"/>
 		<cell border="0120"/>
-		<cell bind="ДО" align="right" border="0220"/>
+		<cell bind="СКД" align="right" border="0220"/>
 		<cell border="0120"/>
-		<cell bind="КО" align="right" border="0220"/>
+		<cell bind="СКК" align="right" border="0220"/>
 		<cell cols="2" border="0220"/>
 	</form>
 	

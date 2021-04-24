@@ -157,4 +157,6 @@
 		</cell>
 	</form>
 	
+	<format name="Дата" DLF="D"/>
+	
 </unit>
