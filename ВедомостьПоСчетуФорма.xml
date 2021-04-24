@@ -52,12 +52,12 @@
 		<cell bind="СНД" align="right" border="0110"/>
 		<cell bind="СНК" align="right" border="0110"/>
 		<cell bind="ДО" align="right" border="0110">
-			<label text=" " grow="1"/>
-			<link reference="КарточкаСчета" type="report"/>  <!--drill="РасшифровкаВедомости"-->
+			<!--<label text=" " grow="1"/>-->
+			<link reference="КарточкаСчета" grow="1" type="detail"/>
 		</cell>
 		<cell bind="КО" align="right" border="0110">
-			<label text=" " grow="1"/>
-			<link reference="КарточкаСчета" type="report"/>  <!--drill="РасшифровкаВедомости"-->
+			<!--<label text=" " grow="1"/>-->
+			<link reference="КарточкаСчета" grow="1" type="detail"/>
 		</cell>
 		<cell bind="СКД" align="right" border="0110"/>
 		<cell bind="СКК" align="right" border="0210"/>
