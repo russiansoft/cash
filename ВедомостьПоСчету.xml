@@ -163,7 +163,7 @@
 		</index>
 	</type>
 	
-	<type name="Строка">
+	<type name="Строка" report="1">
 		<field.number name="ГруппировкаДляИтога"/>
 		<field.ref name="Наименование"/>
 		<field.string name="Представление"/>

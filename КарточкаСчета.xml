@@ -51,41 +51,66 @@
 				</seek>
 			</function>
 			
-			<function name="РасшифровкаВедомости">
-				<is>
-					<type><get field="parent"/></type>
-					<get value="ВедомостьПоСчету-Строка"/>
-				</is>
-			</function>
-			
 			<function name="title">
 				<get value="(отчет не сформирован)"/>
 			</function>
 			
 		</state>
 		
+		<field.ref name="СтрокаВедомости"/>
+		
+		<function name="НачалоРасшифровки">
+			<is>
+				<type><get field="parent"/></type>
+				<get value="ВедомостьПоСчету-Строка"/>
+			</is>
+		</function>
+			
+		<state name="НачалоРасшифровки">
+			
+			<function name="СтрокаВедомости">
+				<get field="parent"/>
+			</function>
+			
+			<function name="НачалоРасшифровки">
+				<get value="0"/>
+			</function>
+			
+			<function name="РасшифровкаВедомости">
+				<get value="1"/>
+			</function>
+		</state>
+		
 		<state name="РасшифровкаВедомости">
 			
 			<function name="НачалоПериода">
-				<get field="parent.owner.НачалоПериода"/>
+				<get field="СтрокаВедомости.owner.НачалоПериода"/>
 			</function>
 			
 			<function name="ОкончаниеПериода">
-				<get field="parent.owner.ОкончаниеПериода"/>
+				<get field="СтрокаВедомости.owner.ОкончаниеПериода"/>
 			</function>
 			
 			<function name="Счет">
-				<get field="parent.owner.Счет"/>
+				<get field="СтрокаВедомости.owner.Счет"/>
 			</function>
 			
 			<function name="СтатьяЗатрат">
-				<get field="parent.Наименование"/>
+				<get field="СтрокаВедомости.Наименование"/>
+			</function>
+			
+			<function name="НачалоРасшифровки">
+				<get value="0"/>
+			</function>
+			
+			<function name="parent">
+				<null/>
 			</function>
 			
 			<function name="Сформировать">
 				<get value="1"/>
 			</function>
-			
+
 		</state>
 		
 		<state name="Сформировать">
