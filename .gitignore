@@ -5,3 +5,6 @@ favicon.*
 config.xml
 database.xml
 datafile.xml
+datafile.log
+*.tmp
+*.log

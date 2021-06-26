@@ -240,25 +240,39 @@
 		<field.number name="Сальдо" precision="2"/>
 
 		<function name="СальдоДО">
-			<!--<overall>
-				<get value="ЗапросСальдоСтроки"/>
-				<get value="СуммаДт"/>
-			</overall>-->
-			<sum>
+			<!--<sum>
 				<get value="СальдоСтроки"/>
 				<get value="ИтогСКД"/>
-			</sum>
+			</sum>-->
+			<total>
+				<get value="ИтогиУчет"/>
+				<get value="СуммаДт"/>
+				<get value="Счет"/><get field="owner.Счет"/><get field="owner.Счет"/>
+				<get value="СтатьяЗатрат"/><get field="owner.СтатьяЗатрат"/><get field="owner.СтатьяЗатрат"/>
+				<get value="Период"/><null/><get field="Дата"/>
+				<get value="Дата"/><null/><get field="ДатаЗаписи"/>
+				<get value="Время"/><null/><get field="ВремяЗаписи"/>
+				<get value="Порядок"/><null/><get field="ПорядокЗаписи"/>
+				<get value="id"/><null/><get field="ЗаписьНаСчете"/>
+			</total>
 		</function>
 		
 		<function name="СальдоКО">
-			<!--<overall>
-				<get value="ЗапросСальдоСтроки"/>
-				<get value="СуммаКт"/>
-			</overall>-->
-			<sum>
+			<!--<sum>
 				<get value="СальдоСтроки"/>
 				<get value="ИтогСКК"/>
-			</sum>
+			</sum>-->
+			<total>
+				<get value="ИтогиУчет"/>
+				<get value="СуммаКт"/>
+				<get value="Счет"/><get field="owner.Счет"/><get field="owner.Счет"/>
+				<get value="СтатьяЗатрат"/><get field="owner.СтатьяЗатрат"/><get field="owner.СтатьяЗатрат"/>
+				<get value="Период"/><null/><get field="Дата"/>
+				<get value="Дата"/><null/><get field="ДатаЗаписи"/>
+				<get value="Время"/><null/><get field="ВремяЗаписи"/>
+				<get value="Порядок"/><null/><get field="ПорядокЗаписи"/>
+				<get value="id"/><null/><get field="ЗаписьНаСчете"/>
+			</total>
 		</function>
 		
 		<function name="Признак">
@@ -321,7 +335,7 @@
 			<get field="ЗаписьНаСчете.Порядок"/>
 		</function>
 		
-		<query name="СальдоСтроки">
+		<!--<query name="СальдоСтроки">
 			<select from="Итоги">
 				<filter by="Счет" field="owner.Счет"/>
 				<filter by="СтатьяЗатрат" field="owner.СтатьяЗатрат"/>
@@ -330,13 +344,13 @@
 				<range by="Время" to="ВремяЗаписи"/>
 				<range by="Порядок" to="ПорядокЗаписи"/>
 				<range by="id" to="ЗаписьНаСчете"/>
-				<!--<group by="ГруппировкаДляИтога"/>-->
+				--><!--<group by="ГруппировкаДляИтога"/>--><!--
 				<get total="СуммаДт" as="ИтогСКД"/>
 				<get total="СуммаКт" as="ИтогСКК"/>
 				<get field="СуммаДт" as="ИтогСКД"/>
 				<get field="СуммаКт" as="ИтогСКК"/>
 			</select>
-		</query>
+		</query>-->
 	</type>
 	
 	<type name="СальдоСтроки">
@@ -416,17 +430,5 @@
 			</if>
 		</function>
 	</type>
-		
-	<query name="ЗапросСальдоСтроки">
-		<select from="Итоги">
-			<filter by="Счет" field="Счет"/>
-			<filter by="СтатьяЗатрат" field="СтатьяЗатрат"/>
-			<filter by="Период" to="Дата"/>
-			<filter by="Дата" to="ДатаЗаписи"/>
-			<filter by="Время" to="ВремяЗаписи"/>
-			<filter by="Порядок" to="ПорядокЗаписи"/>
-			<filter by="id" to="ЗаписьНаСчете"/>
-		</select>
-	</query>
 	
 </unit>
