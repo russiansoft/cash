@@ -6,26 +6,13 @@
 		<field.ref name="Счет" type="ПланСчетов"/>
 		<field.ref name="СтатьяЗатрат" type="СтатьиЗатрат"/>
 		<field.object name="Период" type="Период"/>
-		<field.date name="НачалоПериода"/>
-		<field.date name="ОкончаниеПериода"/>
 		<field.array name="НачальноеСальдо" type="НачальноеСальдо"/>
 		<field.array name="Содержание" type="Строка"/>
 		<field.array name="Обороты" type="Обороты"/>
 		<field.array name="КонечноеСальдо" type="КонечноеСальдо"/>
-		<!--<field.number name="ИтогСНД" precision="2"/>-->
-		<!--<field.number name="ИтогСНК" precision="2"/>-->
 		
-		<function name="НачалоПериода">
-			<get field="Период.Начало"/>
-		</function>
-		
-		<function name="ОкончаниеПериода">
-			<get field="Период.Окончание"/>
-		</function>
-		
-		<state name="constructor">
-			
-			<function name="НачалоПериода">
+		<constructor>
+			<function name="Период.Начало">
 				<date>
 					<year><today/></year>
 					<month><today/></month>
@@ -33,7 +20,7 @@
 				</date>
 			</function>
 			
-			<function name="ОкончаниеПериода">
+			<function name="Период.Окончание">
 				<date>
 					<year><today/></year>
 					<add>
@@ -45,88 +32,35 @@
 			</function>
 			
 			<function name="Счет">
-				<seek>
-					<get value="ПланСчетов"/>
-					<get value="УЧТ"/>
-				</seek>
+				<seek><get value="ПланСчетов"/><get value="УЧТ"/></seek>
 			</function>
 			
-			<function name="title">
-				<get value="(отчет не сформирован)"/>
-			</function>
+			<fun name="title"><get value="(отчет не сформирован)"/></fun>
 			
-		</state>
-		
-		<field.ref name="СтрокаВедомости"/>
-		
-		<function name="НачалоРасшифровки">
-			<is>
-				<type><get field="parent"/></type>
-				<get value="ВедомостьПоСчету-Строка"/>
-			</is>
-		</function>
-			
-		<state name="НачалоРасшифровки">
-			
-			<function name="СтрокаВедомости">
-				<get field="parent"/>
-			</function>
-			
-			<function name="НачалоРасшифровки">
-				<get value="0"/>
-			</function>
-			
-			<function name="РасшифровкаВедомости">
-				<get value="1"/>
-			</function>
-		</state>
+			<event name="РасшифровкаВедомости">
+				<is>
+					<type><get field="parent"/></type>
+					<get value="ВедомостьПоСчету-Строка"/>
+				</is>
+			</event>
+		</constructor>
 		
 		<state name="РасшифровкаВедомости">
-			
-			<function name="НачалоПериода">
-				<get field="СтрокаВедомости.owner.НачалоПериода"/>
-			</function>
-			
-			<function name="ОкончаниеПериода">
-				<get field="СтрокаВедомости.owner.ОкончаниеПериода"/>
-			</function>
-			
-			<function name="Счет">
-				<get field="СтрокаВедомости.owner.Счет"/>
-			</function>
-			
-			<function name="СтатьяЗатрат">
-				<get field="СтрокаВедомости.Наименование"/>
-			</function>
-			
-			<function name="НачалоРасшифровки">
-				<get value="0"/>
-			</function>
-			
-			<function name="parent">
-				<null/>
-			</function>
-			
-			<function name="Сформировать">
-				<get value="1"/>
-			</function>
-
+			<fun name="Период.Начало"><get field="parent.owner.НачалоПериода"/></fun>
+			<fun name="Период.Окончание"><get field="parent.owner.ОкончаниеПериода"/></fun>
+			<fun name="Счет"><get field="parent.owner.Счет"/></fun>
+			<fun name="СтатьяЗатрат"><get field="parent.Наименование"/></fun>
+			<event name="Сформировать"><true/></event>
 		</state>
 		
 		<state name="Сформировать">
-			
-			<function name="Сформировать">
-				<get value="0"/>
-			</function>
 			
 			<query name="НачальноеСальдо">
 				<select from="Итоги">
 					<filter by="Счет" field="Счет"/>
 					<filter by="СтатьяЗатрат" field="СтатьяЗатрат"/>
 					<group by="ГруппировкаДляИтога"/>
-					<range by="Период" to="НачалоПериода"/>
-					<get total="СуммаДт" as="ИтогСНД"/>
-					<get total="СуммаКт" as="ИтогСНК"/>
+					<range by="Период" to="Период.Начало"/>
 				</select>
 			</query>
 	
@@ -134,7 +68,7 @@
 				<select from="Итоги">
 					<filter by="Счет" field="Счет"/>
 					<filter by="СтатьяЗатрат" field="СтатьяЗатрат"/>
-					<range by="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
+					<range by="Период" from="Период.Начало" to="Период.Окончание"/>
 					<get field="Период" as="Дата"/>
 					<get field="СуммаДт" as="ДО"/>
 					<get field="СуммаКт" as="КО"/>
@@ -147,9 +81,7 @@
 					<filter by="Счет" field="Счет"/>
 					<filter by="СтатьяЗатрат" field="СтатьяЗатрат"/>
 					<group by="ГруппировкаДляИтога"/>
-					<!--<group by="Счет"/>
-					<group by="СтатьяЗатрат"/>-->
-					<range by="Период" from="НачалоПериода" to="ОкончаниеПериода"/>
+					<range by="Период" from="Период.Начало" to="Период.Окончание"/>
 					<get total="СуммаДт" as="ДО"/>
 					<get total="СуммаКт" as="КО"/>
 				</select>
@@ -160,7 +92,7 @@
 					<filter by="Счет" field="Счет"/>
 					<filter by="СтатьяЗатрат" field="СтатьяЗатрат"/>
 					<group by="ГруппировкаДляИтога"/>
-					<range by="Период" to="ОкончаниеПериода"/>
+					<range by="Период" to="Период.Окончание"/>
 					<get total="СуммаДт" as="ИтогСКД"/>
 					<get total="СуммаКт" as="ИтогСКК"/>
 				</select>
@@ -201,12 +133,7 @@
 					</period>
 				</join>
 			</function>
-			
 		</state>
-		
-		<index name="КарточкаСчета">
-			<key field="НачалоПериода"/>
-		</index>
 	</type>
 		
 	<type name="Строка">
@@ -225,25 +152,15 @@
 		<field.number name="ДО" precision="2"/>
 		<field.number name="КО" precision="2"/>
 		<field.array name="СальдоСтроки" type="СальдоСтроки"/>
-		
-		<function name="Счет">
-			<get field="owner.Счет"/>
-		</function>
-		
-		<function name="СтатьяЗатрат">
-			<get field="owner.СтатьяЗатрат"/>
-		</function>
-		
 		<field.number name="СальдоДО" precision="2"/>
 		<field.number name="СальдоКО" precision="2"/>
 		<field.string name="Признак"/>
 		<field.number name="Сальдо" precision="2"/>
 
+		<fun name="Счет"><get field="owner.Счет"/></fun>
+		<fun name="СтатьяЗатрат"><get field="owner.СтатьяЗатрат"/></fun>
+		
 		<function name="СальдоДО">
-			<!--<sum>
-				<get value="СальдоСтроки"/>
-				<get value="ИтогСКД"/>
-			</sum>-->
 			<total>
 				<get value="ИтогиУчет"/>
 				<get value="СуммаДт"/>
@@ -258,10 +175,6 @@
 		</function>
 		
 		<function name="СальдоКО">
-			<!--<sum>
-				<get value="СальдоСтроки"/>
-				<get value="ИтогСКК"/>
-			</sum>-->
 			<total>
 				<get value="ИтогиУчет"/>
 				<get value="СуммаКт"/>
@@ -276,14 +189,16 @@
 		</function>
 		
 		<function name="Признак">
-			<if><lt><get field="СальдоДО"/><get field="СальдоКО"/></lt>
+			<if>
+				<less><get field="СальдоДО"/><get field="СальдоКО"/></less>
 				<get value="К"/>
 				<get value="Д"/>
 			</if>
 		</function>
 		
 		<function name="Сальдо">
-			<if><gt><get field="СальдоДО"/><get field="СальдоКО"/></gt>
+			<if>
+				<greater><get field="СальдоДО"/><get field="СальдоКО"/></greater>
 				<sub>
 					<get field="СальдоДО"/>
 					<get field="СальдоКО"/>
@@ -311,46 +226,12 @@
 			</concat>
 		</function>
 		
-		<function name="СчетДебета">
-			<get field="ЗаписьНаСчете.owner.СчетДт.Код"/>
-		</function>
-		
-		<function name="СчетКредита">
-			<get field="ЗаписьНаСчете.owner.СчетКт.Код"/>
-		</function>
-		
-		<function name="Документ">
-			<get field="ЗаписьНаСчете.owner.owner"/>
-		</function>
-		
-		<function name="ДатаЗаписи">
-			<get field="ЗаписьНаСчете.Дата"/>
-		</function>
-		
-		<function name="ВремяЗаписи">
-			<get field="ЗаписьНаСчете.Время"/>
-		</function>
-		
-		<function name="ПорядокЗаписи">
-			<get field="ЗаписьНаСчете.Порядок"/>
-		</function>
-		
-		<!--<query name="СальдоСтроки">
-			<select from="Итоги">
-				<filter by="Счет" field="owner.Счет"/>
-				<filter by="СтатьяЗатрат" field="owner.СтатьяЗатрат"/>
-				<range by="Период" to="Дата"/>
-				<range by="Дата" to="ДатаЗаписи"/>
-				<range by="Время" to="ВремяЗаписи"/>
-				<range by="Порядок" to="ПорядокЗаписи"/>
-				<range by="id" to="ЗаписьНаСчете"/>
-				--><!--<group by="ГруппировкаДляИтога"/>--><!--
-				<get total="СуммаДт" as="ИтогСКД"/>
-				<get total="СуммаКт" as="ИтогСКК"/>
-				<get field="СуммаДт" as="ИтогСКД"/>
-				<get field="СуммаКт" as="ИтогСКК"/>
-			</select>
-		</query>-->
+		<fun name="СчетДебета"><get field="ЗаписьНаСчете.owner.СчетДт.Код"/></fun>
+		<fun name="СчетКредита"><get field="ЗаписьНаСчете.owner.СчетКт.Код"/></fun>
+		<fun name="Документ"><get field="ЗаписьНаСчете.owner.owner"/></fun>
+		<fun name="ДатаЗаписи"><get field="ЗаписьНаСчете.Дата"/></fun>
+		<fun name="ВремяЗаписи"><get field="ЗаписьНаСчете.Время"/></fun>
+		<fun name="ПорядокЗаписи"><get field="ЗаписьНаСчете.Порядок"/></fun>
 	</type>
 	
 	<type name="СальдоСтроки">
@@ -365,8 +246,11 @@
 		
 	<type name="НачальноеСальдо">
 		<field.string name="Наименование"/>
-		<field.number name="ИтогСНД" precision="2"/>
-		<field.number name="ИтогСНК" precision="2"/>
+		<field.number name="ИтогДО" precision="2"/>
+		<field.number name="ИтогКО" precision="2"/>
+		<field.number name="ИтогСКД" precision="2"/>
+		<field.number name="ИтогСКК" precision="2"/>
+		<field.number name="Сальдо" precision="2"/>
 		<field.number name="СНД" precision="2"/>
 		<field.number name="СНК" precision="2"/>
 		
@@ -380,20 +264,74 @@
 			</join>
 		</function>
 		
-		<!--<function name="ИтогСНД">
-			<get field="owner.ИтогСНД"/>
-		</function>-->
+		<function name="ИтогДО">
+			<total>
+				<get value="ИтогиУчет"/>
+				<get value="СуммаДт"/>
+				<get value="Счет"/><get field="owner.Счет"/><get field="owner.Счет"/>
+				<get value="СтатьяЗатрат"/><get field="owner.СтатьяЗатрат"/><get field="owner.СтатьяЗатрат"/>
+				<get value="Период"/><get field="owner.Период.Начало"/><get field="owner.Период.Окончание"/>
+			</total>
+		</function>
+		
+		<function name="ИтогКО">
+			<total>
+				<get value="ИтогиУчет"/>
+				<get value="СуммаКт"/>
+				<get value="Счет"/><get field="owner.Счет"/><get field="owner.Счет"/>
+				<get value="СтатьяЗатрат"/><get field="owner.СтатьяЗатрат"/><get field="owner.СтатьяЗатрат"/>
+				<get value="Период"/><get field="owner.Период.Начало"/><get field="owner.Период.Окончание"/>
+			</total>
+		</function>
+		
+		<function name="ИтогСКД">
+			<total>
+				<get value="ИтогиУчет"/>
+				<get value="СуммаДт"/>
+				<get value="Счет"/><get field="owner.Счет"/><get field="owner.Счет"/>
+				<get value="СтатьяЗатрат"/><get field="owner.СтатьяЗатрат"/><get field="owner.СтатьяЗатрат"/>
+				<get value="Период"/><null/><get field="owner.Период.Окончание"/>
+			</total>
+		</function>
+		
+		<function name="ИтогСКК">
+			<total>
+				<get value="ИтогиУчет"/>
+				<get value="СуммаКт"/>
+				<get value="Счет"/><get field="owner.Счет"/><get field="owner.Счет"/>
+				<get value="СтатьяЗатрат"/><get field="owner.СтатьяЗатрат"/><get field="owner.СтатьяЗатрат"/>
+				<get value="Период"/><null/><get field="owner.Период.Окончание"/>
+			</total>
+		</function>
+		
+		<function name="Сальдо">
+			<sub>
+				<sub>
+					<get field="ИтогСКД"/>
+					<get field="ИтогСКК"/>
+				</sub>
+				<sub>
+					<get field="ИтогДО"/>
+					<get field="ИтогКО"/>
+				</sub>
+			</sub>
+		</function>
 		
 		<function name="СНД">
-			<if><gt><get field="ИтогСНД"/><get field="ИтогСНК"/></gt>
-				<sub><get field="ИтогСНД"/><get field="ИтогСНК"/></sub>
+			<if>
+				<greater><get field="Сальдо"/><get value="0"/></greater>
+				<get field="Сальдо"/>
 				<get value="0"/>
 			</if>
 		</function>
 		
 		<function name="СНК">
-			<if><gt><get field="ИтогСНК"/><get field="ИтогСНД"/></gt>
-				<sub><get field="ИтогСНК"/><get field="ИтогСНД"/></sub>
+			<if>
+				<less><get field="Сальдо"/><get value="0"/></less>
+				<sub>
+					<get value="0"/>
+					<get field="Сальдо"/>
+				</sub>
 				<get value="0"/>
 			</if>
 		</function>
@@ -417,18 +355,19 @@
 		</function>
 		
 		<function name="СКД">
-			<if><gt><get field="ИтогСКД"/><get field="ИтогСКК"/></gt>
+			<if>
+				<greater><get field="ИтогСКД"/><get field="ИтогСКК"/></greater>
 				<sub><get field="ИтогСКД"/><get field="ИтогСКК"/></sub>
 				<get value="0"/>
 			</if>
 		</function>
 		
 		<function name="СКК">
-			<if><gt><get field="ИтогСКК"/><get field="ИтогСКД"/></gt>
+			<if>
+				<greater><get field="ИтогСКК"/><get field="ИтогСКД"/></greater>
 				<sub><get field="ИтогСКК"/><get field="ИтогСКД"/></sub>
 				<get value="0"/>
 			</if>
 		</function>
 	</type>
-	
 </unit>

@@ -94,6 +94,7 @@
 		<cell border="0120"/>
 		<cell bind="СНК" align="right" border="0220"/>
 		<cell cols="2" border="0220"/>
+		<!--<row indent="1" bind="*" cols="9" wrap="1"/>-->
 	</form>
 	
 	<form name="КарточкаСчета-КонечноеСальдо">
