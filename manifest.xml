@@ -15,4 +15,5 @@
 	<include unit="ВедомостьПоСчетуФорма"/>
 	<include unit="КарточкаСчета"/>
 	<include unit="КарточкаСчетаФорма"/>
+	<resource file="favicon.svg"/>
 </package>
