@@ -12,6 +12,11 @@
 		<column width="4"/>
 		<column width="100"/>
 		<row/>
+		<row/><cell text="Версия 1.5 от 30.06.2021" size="20" bold="1" underline="1" cols="3"/>
+		<row/>
+		<row/><cell indent="1" text="Карточка счета" bold="1" italic="1" cols="2"/>
+		<row/><cell indent="2" text="Оптимизация формирования отчета."/>
+		<row/>
 		<row/><cell text="Версия 1.4 от 27.06.2021" size="20" bold="1" underline="1" cols="3"/>
 		<row/>
 		<row/><cell indent="1" text="Ведомость по счету" bold="1" italic="1" cols="2"/>

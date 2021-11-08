@@ -7,7 +7,7 @@
 	
 	<type name="main" scope="global">
 		<function name="title">
-			<get value="Деньги 1.4"/>
+			<get value="Деньги"/>
 		</function>
 	</type>
 	
@@ -65,7 +65,7 @@
 		<row indent="1" text="Справка" bold="1" color="009646" cols="2"/>
 		<row/>
 		<row indent="2">
-			<link reference="Версия" type="report" text="Новое в версии"/>
+			<link reference="Версия" type="report" text="Версия 1.5"/>
 		</row>
 		<row/>
 		<row/>
